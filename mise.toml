@@ -1,0 +1,8 @@
+[tools]
+node = "24.18.0"
+npm = "11.16.0"
+
+[tasks.build]
+run = 'npm run build'
+[tasks.dev]
+run = 'npm run dev'
