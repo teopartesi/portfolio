@@ -37,3 +37,23 @@ jobs:
 
       - name: Build application
         run: npm run build
+
+      - name: Build Docker image
+        run: docker build --tag portfolio:${{ github.sha }} .
+
+      - name: Smoke test Docker image
+        run: |
+          docker run --detach --publish 3000:3000 --name portfolio portfolio:${{ github.sha }}
+
+          for attempt in {1..30}; do
+            if curl --fail --silent http://localhost:3000 > /dev/null; then
+              docker stop portfolio
+              exit 0
+            fi
+
+            sleep 1
+          done
+
+          docker logs portfolio
+          docker stop portfolio
+          exit 1
