@@ -1,0 +1,13 @@
+services:
+  portfolio:
+    build:
+      context: .
+    container_name: portfolio
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: production
+
+volumes:
+  - ./logs:app/logs
