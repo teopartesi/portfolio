@@ -14,6 +14,10 @@ Un portfolio moderne développé avec **Next.js**, **TypeScript** et **Tailwind 
 
 <br>
 
+[🌐 Site en ligne](https://teopartesi.fr/) • [LinkedIn](https://www.linkedin.com/in/t%C3%A9o-partesi/) • [Instagram](https://www.instagram.com/teo_partesi/)
+
+<br>
+
 <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js">
 <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react">
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript">
@@ -100,6 +104,7 @@ portfolio/
 
 **Téo Partesi**
 
-- LinkedIn
-- GitHub
-- Portfolio
+- [LinkedIn](https://www.linkedin.com/in/t%C3%A9o-partesi/)
+- [GitHub](https://github.com/teopartesi/portfolio)
+- [Portfolio](https://teopartesi.fr/)
+- [Instagram](https://www.instagram.com/teo_partesi/)
