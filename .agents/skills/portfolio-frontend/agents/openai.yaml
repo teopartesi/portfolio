@@ -1,0 +1,4 @@
+interface:
+  display_name: "Portfolio Frontend"
+  short_description: "Développer le frontend du portfolio Next.js"
+  default_prompt: "Utilise $portfolio-frontend pour modifier et valider le frontend du portfolio."
