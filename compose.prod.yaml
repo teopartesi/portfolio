@@ -1,0 +1,22 @@
+services:
+  portfolio:
+    image: ghcr.io/teopartesi/portfolio:${IMAGE_TAG:-latest}
+    container_name: portfolio
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.services.portfolio.loadbalancer.server.port=3000
+      - traefik.http.routers.portfolio.rule=Host(`${DOMAIN:-teopartesi.fr}`)
+      - traefik.http.routers.portfolio.entrypoints=websecure
+      - traefik.http.routers.portfolio.tls.certresolver=letsencrypt
+
+networks:
+  proxy:
+    external: true

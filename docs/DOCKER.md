@@ -56,6 +56,35 @@ http://localhost:3000
 
 ---
 
+## Production VPS
+
+Le fichier `compose.prod.yaml` est destiné à la VM.
+Il ne contient pas de `build`.
+Il utilise directement l'image publiée sur GHCR :
+
+```text
+ghcr.io/teopartesi/portfolio:${IMAGE_TAG:-latest}
+```
+
+Exemple manuel sur la VM :
+
+```bash
+cd /opt/docker/compose/portfolio
+docker compose pull
+docker compose up -d
+```
+
+Si l'image GHCR est privée, la VM doit être authentifiée :
+
+```bash
+echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
+```
+
+Cette authentification se fait une seule fois sur la VM.
+Docker la conserve dans `~/.docker/config.json`, ce qui évite de refaire un `docker login` à chaque déploiement.
+
+---
+
 ## Reconstruction
 
 Après une modification du code :
@@ -98,7 +127,8 @@ ghcr.io/teopartesi/portfolio:latest
 ```
 
 Le tag `<commit-sha>` permet de déployer une version précise et reproductible.
-Le tag `latest` sert de référence simple pour les tests et les premiers déploiements.
+La production utilise ce tag de commit via `IMAGE_TAG`.
+Le tag `latest` sert de référence simple pour les tests manuels.
 
 ---
 

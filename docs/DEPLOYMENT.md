@@ -95,6 +95,10 @@ Deployment / Service / Ingress
 
 ### Docker Compose
 
+Le déploiement VPS ne reconstruit plus l'application depuis un clone Git.
+La VM récupère l'image publiée sur GHCR et lance `compose.prod.yaml`.
+En production, le tag déployé est le SHA du commit. Le tag `latest` reste utile pour des tests manuels.
+
 #### Lancer Traefik
 
 ```bash
@@ -106,7 +110,8 @@ docker compose up -d
 
 ```bash
 cd /opt/docker/compose/portfolio
-docker compose up --build -d
+docker compose pull
+docker compose up -d
 ```
 
 ---
@@ -148,15 +153,31 @@ Le déploiement automatisé depuis GitHub Actions est prévu via `kubectl apply`
 
 ### Docker Compose
 
+La mise à jour Docker Compose est automatisée par GitHub Actions après un push sur `main` :
+
+- build et smoke test de l'image Docker ;
+- publication sur GHCR avec les tags `latest` et SHA Git ;
+- connexion SSH à la VM ;
+- copie du fichier Compose de production ;
+- écriture du `.env` avec `IMAGE_TAG=<sha du commit>` ;
+- `docker compose pull` ;
+- `docker compose up -d --remove-orphans`.
+
+La VM doit disposer des secrets GitHub Actions suivants :
+
+- `VPS_HOST` : adresse IP ou domaine de la VM ;
+- `VPS_USER` : utilisateur SSH ;
+- `VPS_SSH_KEY` : clé privée SSH utilisée par GitHub Actions ;
+- `VPS_PORT` : port SSH, optionnel si `22` ;
+- `VPS_DEPLOY_PATH` : dossier de déploiement, optionnel si `/opt/docker/compose/portfolio`.
+
+Si l'image GHCR est privée, la VM doit être authentifiée une seule fois avec un PAT GitHub ayant `read:packages` :
+
 ```bash
-cd /opt/docker/apps/portfolio
-
-git pull
-
-cd /opt/docker/compose/portfolio
-
-docker compose up --build -d
+echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
 ```
+
+Docker stocke ensuite l'authentification dans `~/.docker/config.json`, et les déploiements suivants peuvent faire `docker compose pull` sans refaire de login.
 
 ### Kubernetes
 
