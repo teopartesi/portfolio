@@ -1,6 +1,11 @@
 # 🚀 Deployment Guide
 
-Ce document décrit le déploiement en production du portfolio sur une VPS Scaleway avec Docker et Traefik.
+Ce document décrit la stratégie de déploiement du portfolio.
+
+L'infrastructure cible est une VPS Scaleway. Le projet contient actuellement deux pistes :
+
+- Docker Compose + Traefik pour un déploiement simple sur VPS ;
+- Kubernetes/k3s pour la suite de l'apprentissage DevOps.
 
 ---
 
@@ -23,9 +28,30 @@ Docker Network (proxy)
 Portfolio (Next.js)
 ```
 
+La cible Kubernetes en cours de préparation suit plutôt ce flux :
+
+```text
+GitHub Actions
+     │
+     ▼
+GHCR
+     │
+     ▼
+VPS Scaleway
+     │
+     ▼
+k3s
+     │
+     ▼
+Namespace portfolio
+     │
+     ▼
+Deployment / Service / Ingress
+```
+
 ---
 
-## Infrastructure
+## Infrastructure cible
 
 ### VPS
 
@@ -33,6 +59,7 @@ Portfolio (Next.js)
 - OS : Ubuntu 24.04 LTS
 - Docker Engine
 - Docker Compose
+- k3s prévu pour le déploiement Kubernetes
 
 ### Reverse Proxy
 
@@ -66,14 +93,16 @@ Portfolio (Next.js)
 
 ## Déploiement
 
-### Lancer Traefik
+### Docker Compose
+
+#### Lancer Traefik
 
 ```bash
 cd /opt/docker/compose/traefik
 docker compose up -d
 ```
 
-### Lancer le Portfolio
+#### Lancer le Portfolio
 
 ```bash
 cd /opt/docker/compose/portfolio
@@ -82,7 +111,42 @@ docker compose up --build -d
 
 ---
 
+### Kubernetes
+
+Les manifests Kubernetes sont dans :
+
+```text
+k8s/
+```
+
+Ils créent :
+
+- un namespace `portfolio` ;
+- un Deployment ;
+- un Service ;
+- un Ingress.
+
+Application manuelle :
+
+```bash
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/
+```
+
+Vérification :
+
+```bash
+kubectl get all -n portfolio
+kubectl get ingress -n portfolio
+```
+
+Le déploiement automatisé depuis GitHub Actions est prévu via `kubectl apply` et le tag d'image GHCR correspondant au commit.
+
+---
+
 ## Mise à jour de l'application
+
+### Docker Compose
 
 ```bash
 cd /opt/docker/apps/portfolio
@@ -93,6 +157,10 @@ cd /opt/docker/compose/portfolio
 
 docker compose up --build -d
 ```
+
+### Kubernetes
+
+Une fois l'automatisation en place, GitHub Actions construira et publiera l'image Docker, puis mettra à jour le Deployment Kubernetes avec le tag du commit.
 
 ---
 
@@ -124,3 +192,5 @@ Le certificat SSL est généré automatiquement par Let's Encrypt dès que :
 
 - le domaine pointe vers la VPS ;
 - les ports 80 et 443 sont accessibles.
+
+La configuration Ingress Controller + TLS est suivie dans l'issue dédiée.

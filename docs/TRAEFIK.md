@@ -1,6 +1,8 @@
 # 🌐 Traefik
 
-Ce document présente la configuration de Traefik, utilisé comme reverse proxy pour exposer le portfolio en HTTPS.
+Ce document présente la configuration cible de Traefik, utilisé comme reverse proxy pour exposer le portfolio en HTTPS sur la VPS.
+
+Pour Kubernetes, l'issue dédiée prévoit aussi le choix entre Ingress NGINX et Traefik comme Ingress Controller.
 
 ---
 
@@ -16,6 +18,8 @@ Traefik est utilisé pour :
 
 ## Architecture
 
+### Docker Compose
+
 ```text
 Internet
       │
@@ -27,9 +31,24 @@ Docker Network (proxy)
 Portfolio
 ```
 
+### Kubernetes, plus tard
+
+```text
+Internet
+      │
+      ▼
+Traefik / Ingress Controller
+      │
+Kubernetes Service
+      │
+Portfolio Pod
+```
+
 ---
 
 ## Labels utilisés
+
+Ces labels concernent le déploiement Docker Compose avec Traefik.
 
 ```yaml
 labels:
@@ -82,6 +101,12 @@ docker logs traefik
 docker compose restart
 ```
 
+Pour redémarrer seulement Traefik :
+
+```bash
+docker compose restart traefik
+```
+
 ---
 
 ## Bonnes pratiques
@@ -90,3 +115,4 @@ docker compose restart
 - Ne pas exposer directement les applications.
 - Centraliser la gestion du HTTPS avec Traefik.
 - Renouveler automatiquement les certificats Let's Encrypt.
+- Garder les certificats et le fichier `acme.json` hors du repository.

@@ -7,8 +7,8 @@ Ce document présente les évolutions prévues pour améliorer l'infrastructure 
 ## CI/CD
 
 - [ ] Déploiement automatique avec GitHub Actions
-- [ ] Build automatique des images Docker
-- [ ] Publication des images sur GitHub Container Registry (GHCR)
+- [x] Build automatique des images Docker
+- [x] Publication des images sur GitHub Container Registry (GHCR)
 - [ ] Déploiement automatique sur la VPS
 
 ---
@@ -42,15 +42,17 @@ Ce document présente les évolutions prévues pour améliorer l'infrastructure 
 
 ## Conteneurisation
 
-- [ ] Optimiser les images Docker
-- [ ] Ajouter des healthchecks
+- [x] Optimiser les images Docker
+- [x] Ajouter des healthchecks
 - [ ] Réduire le temps de build
 
 ---
 
 ## Orchestration
 
-- [ ] Migration vers Kubernetes
+- [x] Ajouter les manifests Kubernetes de base
+- [x] Ajouter un namespace Kubernetes dédié
+- [ ] Déployer sur k3s
 - [ ] Déploiement avec Helm
 - [ ] Gestion des secrets Kubernetes
 - [ ] Mise en place d'un Ingress Controller

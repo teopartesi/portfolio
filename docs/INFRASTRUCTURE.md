@@ -4,7 +4,7 @@ Ce document décrit l'infrastructure utilisée pour héberger le portfolio.
 
 ---
 
-## Architecture
+## Architecture cible Docker/Traefik
 
 ```text
                         Internet
@@ -27,6 +27,32 @@ Ce document décrit l'infrastructure utilisée pour héberger le portfolio.
 
 ---
 
+## Architecture cible Kubernetes
+
+```text
+                        Internet
+                             │
+                             ▼
+                     teopartesi.fr
+                             │
+                      Scaleway DNS
+                             │
+                     51.159.24.182
+                             │
+                     Ubuntu 24.04 VPS
+                             │
+                            k3s
+                             │
+                    Namespace portfolio
+                             │
+        Ingress ── Service ── Deployment ── Pod
+                             │
+                             ▼
+                     Portfolio Next.js
+```
+
+---
+
 ## Serveur
 
 ### Fournisseur
@@ -39,6 +65,14 @@ Ce document décrit l'infrastructure utilisée pour héberger le portfolio.
 - 2 vCPU
 - 2 Go de RAM
 
+### Rôle
+
+La VM Scaleway sert de cible pour :
+
+- l'apprentissage du déploiement Docker/Traefik ;
+- la préparation d'un cluster k3s ;
+- le futur déploiement automatisé depuis GitHub Actions.
+
 ---
 
 ## Réseau Docker
@@ -49,6 +83,29 @@ Nom du réseau :
 
 ```text
 proxy
+```
+
+---
+
+## Kubernetes
+
+Les manifests Kubernetes sont stockés dans :
+
+```text
+k8s/
+```
+
+Ressources actuelles :
+
+- `Namespace` : `portfolio`
+- `Deployment` : `portfolio`
+- `Service` : `portfolio`
+- `Ingress` : `portfolio`
+
+L'image utilisée vient de GHCR :
+
+```text
+ghcr.io/teopartesi/portfolio
 ```
 
 ---
@@ -74,6 +131,8 @@ Les seuls ports exposés sont :
 
 Le port 3000 de l'application n'est jamais exposé directement sur Internet.
 
+Le port Kubernetes API `6443` ne doit être exposé que si nécessaire pour l'automatisation du déploiement, et idéalement avec une restriction d'accès.
+
 ---
 
 ## Technologies
@@ -82,6 +141,7 @@ Le port 3000 de l'application n'est jamais exposé directement sur Internet.
 - Docker
 - Docker Compose
 - Traefik
+- Kubernetes / k3s
 - Next.js
 - Let's Encrypt
 - Scaleway
@@ -94,4 +154,4 @@ Le port 3000 de l'application n'est jamais exposé directement sur Internet.
 - Registry d'images avec GitHub Container Registry.
 - Monitoring avec Prometheus et Grafana.
 - Centralisation des logs avec Loki.
-- Migration vers Kubernetes.
+- Helm chart pour remplacer les manifests bruts.
