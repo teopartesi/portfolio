@@ -103,18 +103,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Configure SSH
-        env:
-          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_PORT: ${{ secrets.VPS_PORT }}
-        run: |
-          PORT="${VPS_PORT:-22}"
-          mkdir -p "${HOME}/.ssh"
-          echo "${VPS_SSH_KEY}" > "${HOME}/.ssh/deploy_key"
-          chmod 600 "${HOME}/.ssh/deploy_key"
-          ssh-keyscan -p "${PORT}" -H "${VPS_HOST}" >> "${HOME}/.ssh/known_hosts"
-
       - name: Deploy Docker Compose stack
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
@@ -125,11 +113,24 @@ jobs:
           PORT="${VPS_PORT:-22}"
           DEPLOY_PATH="${VPS_DEPLOY_PATH:-/opt/docker/compose/portfolio}"
           SSH_TARGET="${VPS_USER}@${VPS_HOST}"
-          SSH_OPTS="-i ${HOME}/.ssh/deploy_key -p ${PORT}"
+          KEY="${HOME}/.ssh/deploy_key"
 
-          ssh ${SSH_OPTS} "${SSH_TARGET}" "mkdir -p '${DEPLOY_PATH}' && (docker network inspect proxy >/dev/null 2>&1 || docker network create proxy)"
-          scp ${SSH_OPTS} compose.prod.yaml "${SSH_TARGET}:${DEPLOY_PATH}/compose.yaml"
+          ssh -i "${KEY}" -p "${PORT}" "${SSH_TARGET}" \
+            "mkdir -p '${DEPLOY_PATH}' && \
+            (docker network inspect proxy >/dev/null 2>&1 || docker network create proxy)"
 
-          ssh ${SSH_OPTS} "${SSH_TARGET}" "printf '%s\n%s\n' 'DOMAIN=teopartesi.fr' 'IMAGE_TAG=${{ github.sha }}' > '${DEPLOY_PATH}/.env'"
+          scp -i "${KEY}" -P "${PORT}" \
+            compose.prod.yaml \
+            "${SSH_TARGET}:${DEPLOY_PATH}/compose.yaml"
 
-          ssh ${SSH_OPTS} "${SSH_TARGET}" "cd '${DEPLOY_PATH}' && docker compose pull && docker compose up -d --remove-orphans && docker image prune -f"
+          ssh -i "${KEY}" -p "${PORT}" "${SSH_TARGET}" \
+            "printf '%s\n%s\n' \
+            'DOMAIN=teopartesi.fr' \
+            'IMAGE_TAG=${{ github.sha }}' \
+            > '${DEPLOY_PATH}/.env'"
+
+          ssh -i "${KEY}" -p "${PORT}" "${SSH_TARGET}" \
+            "cd '${DEPLOY_PATH}' && \
+            docker compose pull && \
+            docker compose up -d --remove-orphans && \
+            docker image prune -f"
