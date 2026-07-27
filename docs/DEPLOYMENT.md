@@ -149,19 +149,55 @@ Le déploiement automatisé depuis GitHub Actions est prévu via `kubectl apply`
 
 ---
 
-## Mise à jour de l'application
+## Pipeline CI/CD actif
 
 ### Docker Compose
 
-La mise à jour Docker Compose est automatisée par GitHub Actions après un push sur `main` :
+Les responsabilités GitHub Actions sont séparées dans trois workflows :
 
-- build et smoke test de l'image Docker ;
-- publication sur GHCR avec les tags `latest` et SHA Git ;
-- connexion SSH à la VM ;
-- copie du fichier Compose de production ;
-- écriture du `.env` avec `IMAGE_TAG=<sha du commit>` ;
-- `docker compose pull` ;
-- `docker compose up -d --remove-orphans`.
+- `ci.yml` lance le lint, le build Next.js et le smoke test Docker sur les pull
+  requests et les pushs vers `main` ;
+- `release.yml` orchestre manuellement la validation, le versionnage puis le
+  déploiement depuis `main` ;
+- `deploy.yml` est appelé par le workflow de release pour publier l'image sur
+  GHCR et mettre à jour le VPS.
+
+Un push sur `main` ne déploie donc plus directement en production. Pour publier
+une version :
+
+1. ouvrir l'onglet **Actions** du dépôt GitHub ;
+2. sélectionner **Portfolio Release** ;
+3. cliquer sur **Run workflow** et sélectionner la branche `main` ;
+4. attendre la validation du lint, du build et du smoke test Docker ;
+5. laisser `semantic-release` analyser les Conventional Commits depuis le
+   dernier tag et créer le nouveau tag ainsi que la GitHub Release ;
+6. laisser le workflow réutilisable publier l'image avec les tags `latest` et
+   SHA Git, puis déployer ce SHA sur le VPS.
+
+Le workflow refuse explicitement une branche autre que `main`. Si aucun commit
+ne justifie une nouvelle version, `semantic-release` ne crée pas de tag et le
+déploiement est ignoré. Il ne publie aucun paquet npm.
+
+La GitHub Release est créée avant le déploiement, conformément au flux de
+promotion choisi. Si la publication de l'image ou le déploiement VPS échoue, la
+release reste donc visible ; il faut corriger la cause puis relancer le job de
+déploiement échoué dans GitHub Actions.
+
+### Permissions GitHub Actions
+
+Aucun Personal Access Token n'est nécessaire dans les secrets du dépôt. Chaque
+job utilise le `GITHUB_TOKEN` temporaire créé automatiquement par GitHub avec
+les permissions minimales déclarées dans les workflows :
+
+- CI : `contents: read` ;
+- Semantic Release : `contents: write`, `issues: write` et
+  `pull-requests: write` ;
+- publication GHCR : `contents: read` et `packages: write`.
+
+Les droits sur les issues et les pull requests permettent au plugin GitHub de
+Semantic Release de publier ses commentaires de succès ou d'échec. Le dépôt
+peut conserver les permissions par défaut du `GITHUB_TOKEN` en lecture seule :
+les élévations nécessaires sont limitées aux jobs concernés.
 
 La VM doit disposer des secrets GitHub Actions suivants :
 
@@ -178,6 +214,7 @@ echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
 ```
 
 Docker stocke ensuite l'authentification dans `~/.docker/config.json`, et les déploiements suivants peuvent faire `docker compose pull` sans refaire de login.
+Ce PAT appartient uniquement à la VM et n'est pas utilisé par Semantic Release.
 
 ### Kubernetes
 

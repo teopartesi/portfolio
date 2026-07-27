@@ -150,8 +150,8 @@ Le port Kubernetes API `6443` ne doit être exposé que si nécessaire pour l'au
 
 ## Évolutions possibles
 
-- Déploiement automatique avec GitHub Actions.
-- Registry d'images avec GitHub Container Registry.
+- Ajouter un environnement de préproduction avant la release manuelle.
+- Ajouter une procédure automatisée de rollback vers un SHA déjà publié.
 - Monitoring avec Prometheus et Grafana.
 - Centralisation des logs avec Loki.
 - Helm chart pour remplacer les manifests bruts.

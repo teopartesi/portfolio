@@ -8,7 +8,9 @@ Ce document décrit comment le portfolio est conteneurisé avec Docker et commen
 
 Le portfolio est exécuté dans un conteneur Docker afin de garantir un environnement proche entre le développement, la CI et la production.
 
-L'image est aussi construite et publiée par GitHub Actions sur GitHub Container Registry (GHCR).
+La CI construit et teste l'image. Sa publication sur GitHub Container Registry
+(GHCR) intervient uniquement lorsqu'une release est déclenchée manuellement
+depuis la branche `main`.
 
 ---
 
@@ -119,7 +121,7 @@ docker logs portfolio
 
 ## Registry
 
-La CI publie l'image sur GHCR avec deux tags :
+Le workflow de déploiement publie l'image sur GHCR avec deux tags :
 
 ```text
 ghcr.io/teopartesi/portfolio:<commit-sha>
