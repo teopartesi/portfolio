@@ -6,10 +6,10 @@ Ce document présente les évolutions prévues pour améliorer l'infrastructure 
 
 ## CI/CD
 
-- [ ] Déploiement automatique avec GitHub Actions
+- [x] Validation automatique des pull requests et de `main`
 - [x] Build automatique des images Docker
 - [x] Publication des images sur GitHub Container Registry (GHCR)
-- [ ] Déploiement automatique sur la VPS
+- [x] Release manuelle et déploiement GitHub Actions sur la VPS
 
 ---
 
@@ -62,6 +62,6 @@ Ce document présente les évolutions prévues pour améliorer l'infrastructure 
 ## Documentation
 
 - [ ] Ajouter des diagrammes d'architecture
-- [ ] Documenter le pipeline CI/CD
+- [x] Documenter le pipeline CI/CD
 - [ ] Documenter la procédure de restauration
 - [ ] Ajouter un guide de contribution
