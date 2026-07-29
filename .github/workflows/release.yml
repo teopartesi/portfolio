@@ -45,6 +45,7 @@ jobs:
     outputs:
       released: ${{ steps.detect_release.outputs.released }}
       release_tag: ${{ steps.detect_release.outputs.release_tag }}
+      image_tag: ${{ steps.detect_release.outputs.image_tag }}
 
     steps:
       - name: Checkout repository
@@ -83,12 +84,15 @@ jobs:
 
           if (( tag_count > PREVIOUS_TAG_COUNT )); then
             release_tag="$(git tag --points-at HEAD --list 'v*' --sort=-version:refname | sed -n '1p')"
+            image_tag="${release_tag#v}"
             echo "released=true" >> "${GITHUB_OUTPUT}"
             echo "release_tag=${release_tag}" >> "${GITHUB_OUTPUT}"
-            echo "Created ${release_tag}; deployment will start."
+            echo "image_tag=${image_tag}" >> "${GITHUB_OUTPUT}"
+            echo "Created ${release_tag}; image ${image_tag} will be deployed."
           else
             echo "released=false" >> "${GITHUB_OUTPUT}"
             echo "release_tag=" >> "${GITHUB_OUTPUT}"
+            echo "image_tag=" >> "${GITHUB_OUTPUT}"
             echo "No releasable commit found; deployment will be skipped."
           fi
 
@@ -99,7 +103,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       commit_sha: ${{ github.sha }}
-      release_tag: ${{ needs.release.outputs.release_tag }}
+      image_tag: ${{ needs.release.outputs.image_tag }}
     secrets: inherit
     permissions:
       contents: read

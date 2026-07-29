@@ -97,7 +97,9 @@ Deployment / Service / Ingress
 
 Le déploiement VPS ne reconstruit plus l'application depuis un clone Git.
 La VM récupère l'image publiée sur GHCR et lance `compose.prod.yaml`.
-En production, le tag déployé est le SHA du commit. Le tag `latest` reste utile pour des tests manuels.
+En production, le tag déployé est la version Semantic Release sans préfixe `v`,
+par exemple `1.2.0`. Ce tag est immuable. Le tag `latest` reste utile pour des
+tests manuels.
 
 #### Lancer Traefik
 
@@ -145,7 +147,8 @@ kubectl get all -n portfolio
 kubectl get ingress -n portfolio
 ```
 
-Le déploiement automatisé depuis GitHub Actions est prévu via `kubectl apply` et le tag d'image GHCR correspondant au commit.
+Le déploiement automatisé depuis GitHub Actions est prévu via `kubectl apply` et
+le tag d'image GHCR correspondant à la version Semantic Release.
 
 ---
 
@@ -172,7 +175,11 @@ une version :
 5. laisser `semantic-release` analyser les Conventional Commits depuis le
    dernier tag et créer le nouveau tag ainsi que la GitHub Release ;
 6. laisser le workflow réutilisable publier l'image avec les tags `latest` et
-   SHA Git, puis déployer ce SHA sur le VPS.
+   `<version>`, puis déployer cette version sur le VPS.
+
+Le tag Git et la GitHub Release conservent le préfixe `v` (`v1.2.0`), tandis que
+le tag Docker ne le contient pas (`1.2.0`). Le SHA reste utilisé pour checkout
+exactement le code de la release, mais il n'est plus publié comme tag d'image.
 
 Le workflow refuse explicitement une branche autre que `main`. Si aucun commit
 ne justifie une nouvelle version, `semantic-release` ne crée pas de tag et le
@@ -218,7 +225,9 @@ Ce PAT appartient uniquement à la VM et n'est pas utilisé par Semantic Release
 
 ### Kubernetes
 
-Une fois l'automatisation en place, GitHub Actions construira et publiera l'image Docker, puis mettra à jour le Deployment Kubernetes avec le tag du commit.
+Une fois l'automatisation en place, GitHub Actions construira et publiera
+l'image Docker, puis mettra à jour le Deployment Kubernetes avec le tag de
+version.
 
 ---
 

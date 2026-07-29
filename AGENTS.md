@@ -89,6 +89,6 @@ Clearly distinguish current production behavior from planned Kubernetes/k3s work
 - Never commit `.env` files, credentials, private keys, tokens, kubeconfigs, `acme.json`, or values copied from GitHub Actions secrets. Commit only sanitized examples such as `.env.production.example`.
 - Do not print secrets in commands, logs, fixtures, documentation, or test output.
 - Do not expose the application port directly in production; Traefik reaches port 3000 through the external `proxy` network.
-- Keep production images pinned to immutable commit-SHA tags. Treat `latest` as a manual convenience, not a reproducible production release.
+- Keep production images pinned to immutable Semantic Release version tags without the `v` prefix, such as `1.2.0`. Use the commit SHA only to check out and trace the released source. Treat `latest` as a manual convenience, not a reproducible production release.
 - Do not run deployment commands, mutate the VPS, publish images, change DNS/TLS, or apply Kubernetes resources without explicit user authorization.
 - Treat changes to `.github/workflows/ci.yml`, `compose.prod.yaml`, `Dockerfile`, and `k8s/` as production-sensitive. Explain impact and rollback considerations, and validate them more thoroughly than ordinary UI changes.
