@@ -124,12 +124,13 @@ docker logs portfolio
 Le workflow de déploiement publie l'image sur GHCR avec deux tags :
 
 ```text
-ghcr.io/teopartesi/portfolio:<commit-sha>
+ghcr.io/teopartesi/portfolio:<version>
 ghcr.io/teopartesi/portfolio:latest
 ```
 
-Le tag `<commit-sha>` permet de déployer une version précise et reproductible.
-La production utilise ce tag de commit via `IMAGE_TAG`.
+Le tag `<version>` correspond à la version Semantic Release sans préfixe `v`,
+par exemple `1.2.0`. Il est immuable et permet de déployer une version précise
+et reproductible. La production utilise ce tag via `IMAGE_TAG`.
 Le tag `latest` sert de référence simple pour les tests manuels.
 
 ---
@@ -140,4 +141,5 @@ Le tag `latest` sert de référence simple pour les tests manuels.
 - Construire une image de production légère.
 - Éviter d'exposer directement le port de l'application.
 - Utiliser un reverse proxy pour gérer le trafic entrant.
-- Préférer un tag d'image immuable, comme le SHA Git, pour les déploiements automatisés.
+- Utiliser le tag de version Semantic Release comme référence immuable pour les
+  déploiements automatisés.
