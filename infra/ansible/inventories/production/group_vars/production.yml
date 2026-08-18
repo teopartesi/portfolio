@@ -1,0 +1,5 @@
+---
+project_name: portfolio
+docker_root: /opt/docker
+docker_apps_dir: "{{ docker_root }}/apps"
+docker_network_name: proxy
