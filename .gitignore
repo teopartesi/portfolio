@@ -10,6 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 
+# ansible cache
+infra/ansible/.ansible/
+
 # testing
 /coverage
 

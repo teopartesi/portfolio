@@ -1,0 +1,16 @@
+---
+- name: Manage Docker network
+  hosts: production
+  gather_facts: false
+
+  tasks:
+    - name: Get Docker network information
+      community.docker.docker_network_info:
+        name: "{{ docker_network_name }}"
+      register: docker_network_info
+
+    - name: Display Docker network status
+      ansible.builtin.debug:
+        msg:
+          - "Network: {{ docker_network_name }}"
+          - "Exists: {{ docker_network_info.exists }}"
