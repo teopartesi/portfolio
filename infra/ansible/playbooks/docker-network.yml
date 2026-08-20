@@ -4,13 +4,9 @@
   gather_facts: false
 
   tasks:
-    - name: Get Docker network information
-      community.docker.docker_network_info:
+    - name: Ensure Docker proxy network exists
+      community.docker.docker_network:
         name: "{{ docker_network_name }}"
-      register: docker_network_info
-
-    - name: Display Docker network status
-      ansible.builtin.debug:
-        msg:
-          - "Network: {{ docker_network_name }}"
-          - "Exists: {{ docker_network_info.exists }}"
+        driver: bridge
+        state: present
+        appends: true
