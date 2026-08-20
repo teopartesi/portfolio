@@ -1,0 +1,24 @@
+---
+- name: Audit Docker containers
+  hosts: production
+  gather_facts: false
+
+  tasks:
+    - name: Get Docker container information
+      community.docker.docker_container_info:
+        name: "{{ item }}"
+      loop:
+        - traefik
+        - portfolio
+      register: docker_containers
+
+    - name: Display Docker container status
+      ansible.builtin.debug:
+        msg:
+          - "Container: {{ item.item }}"
+          - "Exists: {{ item.exists }}"
+          - "Image: {{ item.container.Config.Image }}"
+          - "Status: {{ item.container.State.Status }}"
+          - "Running: {{ item.container.State.Running }}"
+      loop: "{{ docker_containers.results }}"
+      when: item.exists
