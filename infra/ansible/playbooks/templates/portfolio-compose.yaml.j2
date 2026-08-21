@@ -1,6 +1,6 @@
 services:
   portfolio:
-    image: {{ portfolio_image }}:${IMAGE_TAG:-latest}
+    image: {{ portfolio_image }}:{{ portfolio_image_tag }}
     container_name: portfolio
     restart: unless-stopped
     environment:

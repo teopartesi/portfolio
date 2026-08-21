@@ -1,0 +1,39 @@
+---
+- name: Deploy Portfolio
+  hosts: production
+  gather_facts: false
+
+  tasks:
+    - name: Validate Portfolio image tag
+      ansible.builtin.assert:
+        that:
+          - portfolio_image_tag is defined
+          - portfolio_image_tag | length > 0
+        fail_msg: "portfolio_image_tag must be defined."
+
+    - name: Deploy Portfolio Compose configuration
+      ansible.builtin.template:
+        src: portfolio-compose.yaml.j2
+        dest: "{{ portfolio_compose_file }}"
+        owner: teo
+        group: teo
+        mode: "0644"
+
+    - name: Validate Portfolio Compose configuration
+      ansible.builtin.command:
+        argv:
+          - docker
+          - compose
+          - -f
+          - "{{ portfolio_compose_file }}"
+          - config
+          - --quiet
+      changed_when: false
+
+    - name: Ensure Portfolio Compose project is running
+      community.docker.docker_compose_v2:
+        project_src: "{{ portfolio_compose_dir }}"
+        state: present
+        pull: missing
+        recreate: auto
+        remove_orphans: false

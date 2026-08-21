@@ -8,6 +8,7 @@ docker_compose_dir: "{{ docker_root }}/compose"
 portfolio_compose_dir: "{{ docker_compose_dir }}/portfolio"
 portfolio_compose_file: "{{ portfolio_compose_dir }}/compose.yaml"
 portfolio_image: ghcr.io/teopartesi/portfolio
+portfolio_image_tag: "1.1.1"
 portfolio_domain: teopartesi.fr
 portfolio_port: 3000
 
