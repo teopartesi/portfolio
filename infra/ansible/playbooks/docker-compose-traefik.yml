@@ -1,0 +1,13 @@
+---
+- name: Manage Traefik Docker Compose project
+  hosts: production
+  gather_facts: false
+
+  tasks:
+    - name: Ensure Traefik Compose project is running
+      community.docker.docker_compose_v2:
+        project_src: "{{ traefik_compose_dir }}"
+        state: present
+        pull: never
+        recreate: auto
+        remove_orphans: false
