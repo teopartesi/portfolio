@@ -1,0 +1,21 @@
+---
+- name: Prepare the production server
+  hosts: production
+  gather_facts: true
+
+  tasks:
+    - name: Ensure Docker root directory exists
+      ansible.builtin.file:
+        path: "{{ docker_root }}"
+        state: directory
+        owner: teo
+        group: teo
+        mode: "0755"
+
+    - name: Ensure Docker apps directory exists
+      ansible.builtin.file:
+        path: "{{ docker_apps_dir }}"
+        state: directory
+        owner: teo
+        group: teo
+        mode: "0755"

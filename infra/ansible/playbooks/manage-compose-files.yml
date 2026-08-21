@@ -1,0 +1,37 @@
+---
+- name: Manage Docker Compose configuration files
+  hosts: production
+  gather_facts: false
+
+  tasks:
+    - name: Ensure Portfolio Compose directory exists
+      ansible.builtin.file:
+        path: "{{ portfolio_compose_dir }}"
+        state: directory
+        owner: teo
+        group: teo
+        mode: "0755"
+
+    - name: Deploy Portfolio Compose configuration
+      ansible.builtin.template:
+        src: portfolio-compose.yaml.j2
+        dest: "{{ portfolio_compose_file }}"
+        owner: teo
+        group: teo
+        mode: "0644"
+
+    - name: Ensure Traefik Compose directory exists
+      ansible.builtin.file:
+        path: "{{ traefik_compose_dir }}"
+        state: directory
+        owner: teo
+        group: teo
+        mode: "0755"
+
+    - name: Deploy Traefik Compose configuration
+      ansible.builtin.template:
+        src: traefik-compose.yaml.j2
+        dest: "{{ traefik_compose_file }}"
+        owner: teo
+        group: teo
+        mode: "0644"

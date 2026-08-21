@@ -1,0 +1,22 @@
+services:
+  portfolio:
+    image: {{ portfolio_image }}:{{ portfolio_image_tag }}
+    container_name: portfolio
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: "{{ portfolio_port }}"
+    networks:
+      - {{ docker_network_name }}
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network={{ docker_network_name }}
+      - traefik.http.services.portfolio.loadbalancer.server.port={{ portfolio_port }}
+      - traefik.http.routers.portfolio.rule=Host(`${DOMAIN:-{{ portfolio_domain }}}`)
+      - traefik.http.routers.portfolio.entrypoints=websecure
+      - traefik.http.routers.portfolio.tls.certresolver=letsencrypt
+
+networks:
+  {{ docker_network_name }}:
+    external: true

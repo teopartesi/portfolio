@@ -1,0 +1,20 @@
+---
+- name: Inspect the production server
+  hosts: production
+  gather_facts: true
+
+  tasks:
+    - name: Display the production server summary
+      ansible.builtin.debug:
+        msg:
+          - "Inventory name: {{ inventory_hostname }}"
+          - "Hostname: {{ ansible_facts['hostname'] }}"
+          - >-
+            Operating system:
+            {{ ansible_facts["distribution"] }}
+            {{ ansible_facts["distribution_version"] }}
+          - "Kernel: {{ ansible_facts['kernel'] }}"
+          - "Architecture: {{ ansible_facts['architecture'] }}"
+          - "Virtual CPUs: {{ ansible_facts['processor_vcpus'] }}"
+          - "Memory: {{ ansible_facts['memtotal_mb'] }} MB"
+          - "IPv4 address: {{ ansible_facts['default_ipv4']['address'] }}"

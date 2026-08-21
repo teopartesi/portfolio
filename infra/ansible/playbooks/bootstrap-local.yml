@@ -1,0 +1,28 @@
+---
+- name: Validate the local Ansible configuration
+  hosts: local
+  gather_facts: true
+
+  tasks:
+    - name: Display the detected operating system
+      ansible.builtin.debug:
+        msg: >-
+          Ansible is running on
+          {{ ansible_facts["distribution"] }}
+          {{ ansible_facts["distribution_version"] }}.
+
+    - name: Ensure the Ansible demonstration directory exists
+      ansible.builtin.file:
+        path: /tmp/portfolio-ansible
+        state: directory
+        mode: "0755"
+
+    - name: Create the Ansible demonstration file
+      ansible.builtin.copy:
+        dest: /tmp/portfolio-ansible/README.txt
+        content: |
+          This file is managed by Ansible.
+
+          Project: portfolio
+          Environment: local
+        mode: "0644"

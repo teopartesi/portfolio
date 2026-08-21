@@ -1,0 +1,21 @@
+---
+- name: Audit Docker Compose projects
+  hosts: production
+  gather_facts: false
+
+  tasks:
+    - name: Check Traefik Compose file
+      ansible.builtin.stat:
+        path: /opt/docker/compose/traefik/compose.yaml
+      register: traefik_compose
+
+    - name: Check Portfolio Compose file
+      ansible.builtin.stat:
+        path: /opt/docker/compose/portfolio/compose.yaml
+      register: portfolio_compose
+
+    - name: Display Docker Compose files status
+      ansible.builtin.debug:
+        msg:
+          - "Traefik Compose exists: {{ traefik_compose.stat.exists }}"
+          - "Portfolio Compose exists: {{ portfolio_compose.stat.exists }}"

@@ -1,0 +1,12 @@
+---
+- name: Manage Docker network
+  hosts: production
+  gather_facts: false
+
+  tasks:
+    - name: Ensure Docker proxy network exists
+      community.docker.docker_network:
+        name: "{{ docker_network_name }}"
+        driver: bridge
+        state: present
+        appends: true

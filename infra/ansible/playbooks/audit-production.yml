@@ -1,0 +1,35 @@
+---
+- name: Audit the production server
+  hosts: production
+  gather_facts: true
+
+  tasks:
+    - name: Check the current user
+      ansible.builtin.command:
+        cmd: whoami
+      register: current_user
+      changed_when: false
+
+    - name: Check the privileged user
+      ansible.builtin.command:
+        cmd: whoami
+      become: true
+      register: privileged_user
+      changed_when: false
+
+    - name: Check Docker version
+      ansible.builtin.command:
+        cmd: docker --version
+      register: docker_version
+      changed_when: false
+
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Display production audit
+      ansible.builtin.debug:
+        msg:
+          - "SSH user: {{ current_user.stdout }}"
+          - "Privileged user: {{ privileged_user.stdout }}"
+          - "Docker: {{ docker_version.stdout }}"
+          - "Docker service: {{ ansible_facts.services['docker.service'].state }}"

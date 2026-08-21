@@ -1,0 +1,21 @@
+---
+- name: Validate Docker Compose projects
+  hosts: production
+  gather_facts: false
+
+  tasks:
+    - name: Validate Docker Compose configuration
+      ansible.builtin.command:
+        argv:
+          - docker
+          - compose
+          - -f
+          - "{{ item }}"
+          - config
+          - --quiet
+      loop:
+        - "{{ traefik_compose_file }}"
+        - "{{ portfolio_compose_file }}"
+      loop_control:
+        label: "{{ item }}"
+      changed_when: false
