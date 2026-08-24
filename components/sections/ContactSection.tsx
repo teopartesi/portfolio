@@ -7,12 +7,12 @@ export function ContactSection() {
       id="contact"
       eyebrow="Contact"
       title="Discutons projet, alternance, opportunité ou collaboration."
-      description="Cette zone recevra plus tard tes liens réels GitHub, LinkedIn et ton adresse email professionnelle."
+      description="Une question sur ce portfolio, sa pipeline CI/CD ou son infrastructure ? Écrivez-moi."
     >
       <div className="rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-6 sm:p-8">
         <p className="max-w-2xl text-lg leading-8 text-zinc-100">
-          Pour l&apos;instant, le contact est provisoire. Remplace cette adresse
-          quand tu voudras connecter ton vrai profil.
+          Je suis disponible pour échanger autour du développement web, du
+          DevOps et de l&apos;automatisation des déploiements.
         </p>
         <a
           href={`mailto:${profile.email}`}
