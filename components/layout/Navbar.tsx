@@ -10,7 +10,7 @@ export function Navbar() {
           aria-label="Navigation principale"
           className="flex items-center justify-between gap-6"
         >
-          <a href="#" className="group flex flex-col">
+          <a href="" className="group flex flex-col">
             <span className="font-mono text-sm font-semibold uppercase tracking-[0.22em] text-zinc-50">
               {profile.name}
             </span>
@@ -32,7 +32,6 @@ export function Navbar() {
           </div>
 
           <a
-            href="#about"
             className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-cyan-300/40 bg-zinc-900 p-0.5 shadow-md shadow-cyan-950/40 transition duration-200 hover:scale-105 hover:border-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 motion-reduce:transform-none motion-reduce:transition-none sm:size-11"
           >
             <Image
