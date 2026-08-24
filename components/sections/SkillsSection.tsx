@@ -7,7 +7,7 @@ export function SkillsSection() {
       id="skills"
       eyebrow="Compétences"
       title="Une stack orientée produit, automatisation et déploiement."
-      description="Les compétences sont provisoires et servent de base pour structurer le portfolio avant d'ajouter ton niveau réel et tes outils principaux."
+      description="Un socle utilisé sur ce portfolio, de l'interface Next.js jusqu'à la livraison versionnée sur la VM Scaleway."
     >
       <div className="grid gap-4 lg:grid-cols-3">
         {skills.map((group) => (

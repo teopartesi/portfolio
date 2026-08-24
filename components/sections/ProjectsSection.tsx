@@ -6,8 +6,8 @@ export function ProjectsSection() {
     <Section
       id="projects"
       eyebrow="Projets"
-      title="Des projets pensés pour montrer la pratique, pas seulement la stack."
-      description="Cette première grille pose le format. Chaque carte pourra ensuite devenir une étude de cas avec contexte, contraintes, solution et résultat."
+      title="Du code au déploiement, avec des preuves consultables."
+      description="Ce portfolio est aussi un projet DevOps : les liens donnent accès au code, aux releases, aux workflows et à la documentation de l'infrastructure."
     >
       <div className="grid gap-4 lg:grid-cols-3">
         {projects.map((project) => (
@@ -23,15 +23,32 @@ export function ProjectsSection() {
                 {project.description}
               </p>
             </div>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-cyan-300/10 px-3 py-1 text-xs font-medium text-cyan-200"
-                >
-                  {tag}
-                </span>
-              ))}
+            <div className="mt-6">
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-cyan-300/10 px-3 py-1 text-xs font-medium text-cyan-200"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 border-t border-white/10 pt-5">
+                {project.links.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-200 transition hover:text-cyan-300 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+                  >
+                    {link.label}
+                    <span aria-hidden="true">↗</span>
+                    <span className="sr-only"> (nouvel onglet)</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </article>
         ))}

@@ -38,15 +38,15 @@ export function HeroSection() {
             <span className="size-3 rounded-full bg-emerald-400" />
           </div>
           <pre className="overflow-hidden whitespace-pre-wrap font-mono text-sm leading-7 text-zinc-300">
-            <code>{`$ npm run build
-✓ lint
-✓ type-check
-✓ optimized production build
+            <code>{`pipeline:
+✓  validate: lint + build + smoke-test
+✓  version: semantic-release
+✓  registry: ghcr.io
 
 deploy:
-  provider: vercel
-  status: ready
-  focus: performance + reliability`}</code>
+✓  target: scaleway-vps
+✓  runtime: docker-compose + traefik
+✓  status: production`}</code>
           </pre>
         </div>
       </div>
