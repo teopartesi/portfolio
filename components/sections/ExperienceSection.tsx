@@ -1,3 +1,5 @@
+import { CalendarDays } from "lucide-react";
+
 import { experience } from "@/lib/data";
 import { Section } from "@/components/ui/Section";
 
@@ -20,29 +22,34 @@ export function ExperienceSection() {
               className="absolute -left-[5px] top-8 size-2.5 rounded-full bg-cyan-300 ring-4 ring-zinc-950"
             />
 
-            <article className="rounded-lg border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-cyan-300/30 hover:bg-white/[0.05] sm:p-7">
+            <article className="rounded-lg border border-white/10 bg-white/3 p-5 transition-colors hover:border-cyan-300/30 hover:bg-white/5 sm:p-7">
               <div className="flex min-w-0 flex-col gap-4 border-b border-white/10 pb-5 md:flex-row md:items-start md:justify-between">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="font-mono text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">
                       {item.organization}
                     </p>
-                    <span className="max-w-full break-words rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs font-medium text-zinc-300">
+                    <span className="max-w-full wrap-break-word rounded-full border border-white/10 bg-white/4 px-2.5 py-1 text-xs font-medium text-zinc-300">
                       {item.type}
                     </span>
                   </div>
-                  <h3 className="mt-3 break-words text-xl font-semibold text-zinc-50 sm:text-2xl">
+                  <h3 className="mt-3 wrap-break-words text-xl font-semibold text-zinc-50 sm:text-2xl">
                     {item.role}
                   </h3>
                 </div>
 
-                <p className="max-w-full break-words rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5 font-mono text-xs text-cyan-200 md:w-fit md:shrink-0">
+                <p className="flex max-w-full items-center gap-2 wrap-break-words rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5 font-mono text-xs text-cyan-200 md:w-fit md:shrink-0">
+                  <CalendarDays
+                    className="size-3.5 shrink-0"
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
                   <span className="sr-only">Période : </span>
                   {item.period}
                 </p>
               </div>
 
-              <p className="mt-5 max-w-3xl break-words leading-7 text-zinc-300">
+              <p className="mt-5 max-w-3xl wrap-break-words leading-7 text-zinc-300">
                 {item.summary}
               </p>
 
@@ -53,7 +60,7 @@ export function ExperienceSection() {
                       aria-hidden="true"
                       className="mt-2.5 size-1.5 shrink-0 rounded-full bg-cyan-300/80"
                     />
-                    <span className="min-w-0 break-words">{highlight}</span>
+                    <span className="min-w-0 wrap-break-words">{highlight}</span>
                   </li>
                 ))}
               </ul>
@@ -66,7 +73,7 @@ export function ExperienceSection() {
                   {item.technologies.map((technology) => (
                     <li
                       key={technology}
-                      className="max-w-full break-words rounded-full border border-white/10 bg-zinc-950/60 px-3 py-1 text-xs font-medium text-zinc-300"
+                      className="max-w-full wrap-break-words rounded-full border border-white/10 bg-zinc-950/60 px-3 py-1 text-xs font-medium text-zinc-300"
                     >
                       {technology}
                     </li>
