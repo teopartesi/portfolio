@@ -174,14 +174,15 @@ une version :
 3. cliquer sur **Run workflow** et sélectionner la branche `main` ;
 4. attendre la validation du lint, du build et du smoke test Docker ;
 5. laisser `semantic-release` analyser les commits Gitmoji et Conventional
-   Commits depuis le dernier tag, puis créer le nouveau tag ainsi que la GitHub
-   Release ;
+   Commits depuis le dernier tag, mettre à jour `CHANGELOG.md`, créer le commit
+   de release, le nouveau tag et la GitHub Release ;
 6. laisser le workflow réutilisable publier l'image avec les tags `latest` et
    `<version>`, puis déployer cette version sur le VPS.
 
 Le tag Git et la GitHub Release conservent le préfixe `v` (`v1.2.0`), tandis que
-le tag Docker ne le contient pas (`1.2.0`). Le SHA reste utilisé pour checkout
-exactement le code de la release, mais il n'est plus publié comme tag d'image.
+le tag Docker ne le contient pas (`1.2.0`). Le workflow de déploiement checkout
+le tag Git créé afin que l'image, le fichier Compose et `CHANGELOG.md`
+correspondent exactement au même commit de release.
 
 Le workflow refuse explicitement une branche autre que `main`. Si aucun commit
 ne justifie une nouvelle version, `semantic-release` ne crée pas de tag et le
@@ -218,6 +219,13 @@ variation Unicode sont normalisés : `⚡` et `⚡️` ont le même comportement
 liste et les niveaux de référence sont ceux du package officiel
 [`gitmojis`](https://www.npmjs.com/package/gitmojis).
 
+Les mêmes notes sont ajoutées en tête de `CHANGELOG.md`. Semantic Release crée
+ensuite sur `main` un commit `chore(release): <version> [skip ci]` contenant
+uniquement ce fichier, puis place le tag `v<version>` sur ce commit. Le marqueur
+`[skip ci]` évite de relancer le workflow CI pour ce commit généré. Les règles de
+protection de `main` doivent autoriser le `GITHUB_TOKEN` du workflow de release
+à pousser ce commit ; sinon la release s'arrête avant la création du tag.
+
 La GitHub Release est créée avant le déploiement, conformément au flux de
 promotion choisi. Si la publication de l'image ou le déploiement VPS échoue, la
 release reste donc visible ; il faut corriger la cause puis relancer le job de
@@ -230,8 +238,8 @@ job utilise le `GITHUB_TOKEN` temporaire créé automatiquement par GitHub avec
 les permissions minimales déclarées dans les workflows :
 
 - CI : `contents: read` ;
-- Semantic Release : `contents: write`, `issues: write` et
-  `pull-requests: write` ;
+- Semantic Release : `contents: write` pour pousser `CHANGELOG.md` et le tag,
+  `issues: write` et `pull-requests: write` ;
 - publication GHCR : `contents: read` et `packages: write`.
 
 Les droits sur les issues et les pull requests permettent au plugin GitHub de

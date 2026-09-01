@@ -3,8 +3,8 @@ name: Portfolio Deployment
 on:
   workflow_call:
     inputs:
-      commit_sha:
-        description: Commit SHA to check out for the image build and Compose file
+      release_ref:
+        description: Git tag to check out for the image build and Compose file
         required: true
         type: string
       image_tag:
@@ -38,7 +38,7 @@ jobs:
       - name: Checkout release commit
         uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.commit_sha }}
+          ref: ${{ inputs.release_ref }}
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -67,7 +67,7 @@ jobs:
       - name: Checkout release commit
         uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.commit_sha }}
+          ref: ${{ inputs.release_ref }}
 
       - name: Deploy Docker Compose stack
         env:

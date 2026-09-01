@@ -1,17 +1,29 @@
 import assert from "node:assert/strict";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import test from "node:test";
 
+import { prepare as prepareChangelog } from "@semantic-release/changelog";
 import { analyzeCommits } from "@semantic-release/commit-analyzer";
 import { generateNotes } from "@semantic-release/release-notes-generator";
 
 import releaseConfig from "../release.config.mjs";
 
-const [, analyzerOptions] = releaseConfig.plugins.find(
-  ([plugin]) => plugin === "@semantic-release/commit-analyzer",
+function getPluginOptions(pluginName) {
+  const pluginConfig = releaseConfig.plugins.find(
+    (entry) => Array.isArray(entry) && entry[0] === pluginName,
+  );
+
+  return pluginConfig?.[1] ?? {};
+}
+
+const analyzerOptions = getPluginOptions("@semantic-release/commit-analyzer");
+const notesOptions = getPluginOptions(
+  "@semantic-release/release-notes-generator",
 );
-const [, notesOptions] = releaseConfig.plugins.find(
-  ([plugin]) => plugin === "@semantic-release/release-notes-generator",
-);
+const changelogOptions = getPluginOptions("@semantic-release/changelog");
+const gitOptions = getPluginOptions("@semantic-release/git");
 const logger = { log() {} };
 
 function createCommits(messages) {
@@ -90,7 +102,7 @@ test("does not release for informational Gitmojis or merge commits", async () =>
   );
 });
 
-test("produces patch release notes for the commits after v1.2.0", async () => {
+test("produces patch release notes for Gitmoji patch commits", async () => {
   const messages = [
     "Merge pull request #51 from teopartesi/10-feat-add-lucide-react-for-icons\n\nfeat: ➕ Add lucide-react icons",
     "💄 Add a lots of emojis😛",
@@ -127,4 +139,32 @@ test("includes scoped and non-releasing Gitmojis in generated notes", async () =
   assert.match(notes, /### 📝 Add or update documentation/u);
   assert.match(notes, /### ♻️ Refactor code/u);
   assert.match(notes, /Polish the footer/u);
+});
+
+test("generates CHANGELOG.md and configures it as a release asset", async (t) => {
+  const cwd = await mkdtemp(join(tmpdir(), "portfolio-changelog-"));
+  t.after(() => rm(cwd, { force: true, recursive: true }));
+
+  await prepareChangelog(changelogOptions, {
+    cwd,
+    logger,
+    nextRelease: {
+      notes: "## 1.3.0\n\n### ✨ Introduce new features\n\n* Add Gitmoji releases",
+    },
+  });
+
+  const changelog = await readFile(join(cwd, "CHANGELOG.md"), "utf8");
+  const pluginNames = releaseConfig.plugins.map((entry) =>
+    Array.isArray(entry) ? entry[0] : entry,
+  );
+
+  assert.match(changelog, /^# Changelog/u);
+  assert.match(changelog, /## 1\.3\.0/u);
+  assert.match(changelog, /Add Gitmoji releases/u);
+  assert.deepEqual(gitOptions.assets, ["CHANGELOG.md"]);
+  assert.match(gitOptions.message, /\[skip ci\]/u);
+  assert.ok(
+    pluginNames.indexOf("@semantic-release/changelog") <
+      pluginNames.indexOf("@semantic-release/git"),
+  );
 });
