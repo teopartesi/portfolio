@@ -36,7 +36,7 @@ export function AboutSection() {
           return (
             <article
               key={item.title}
-              className="rounded-lg border border-white/10 bg-white/[0.03] p-6 transition hover:border-cyan-300/40 hover:bg-white/[0.05]"
+              className="rounded-lg border border-white/10 bg-white/3 p-6 transition hover:border-cyan-300/40 hover:bg-white/5"
             >
               <span className="flex size-10 items-center justify-center rounded-lg border border-cyan-300/20 bg-cyan-300/10 text-cyan-300">
                 <ItemIcon
