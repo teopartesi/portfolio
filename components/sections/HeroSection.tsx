@@ -1,3 +1,5 @@
+import { ArrowDown, MessageCircle } from "lucide-react";
+
 import { profile } from "@/lib/data";
 
 export function HeroSection() {
@@ -18,15 +20,25 @@ export function HeroSection() {
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
               href="#projects"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-cyan-300 px-6 text-sm font-semibold text-zinc-950 transition hover:bg-cyan-200"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-300 px-6 text-sm font-semibold text-zinc-950 transition hover:bg-cyan-200"
             >
               Voir les projets
+              <ArrowDown
+                className="size-4 shrink-0"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
             </a>
             <a
               href="#contact"
-              className="inline-flex h-12 items-center justify-center rounded-full border border-white/15 px-6 text-sm font-semibold text-zinc-100 transition hover:border-white/30 hover:bg-white/10"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm font-semibold text-zinc-100 transition hover:border-white/30 hover:bg-white/10"
             >
               Me contacter
+              <MessageCircle
+                className="size-4 shrink-0 text-cyan-300"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
             </a>
           </div>
         </div>

@@ -19,7 +19,7 @@ export function Navbar() {
             </span>
           </a>
 
-          <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1 md:flex">
+          <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/3 p-1 md:flex">
             {navigation.map((item) => (
               <a
                 key={item.href}
@@ -53,7 +53,7 @@ export function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="shrink-0 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-zinc-300 transition hover:border-white/20 hover:bg-white/10 hover:text-zinc-50"
+              className="shrink-0 rounded-full border border-white/10 bg-white/3 px-3 py-2 text-sm text-zinc-300 transition hover:border-white/20 hover:bg-white/10 hover:text-zinc-50"
             >
               {item.label}
             </a>

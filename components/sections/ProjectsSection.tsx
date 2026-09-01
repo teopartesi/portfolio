@@ -1,3 +1,5 @@
+import { ExternalLink } from "lucide-react";
+
 import { projects } from "@/lib/data";
 import { Section } from "@/components/ui/Section";
 
@@ -13,7 +15,7 @@ export function ProjectsSection() {
         {projects.map((project) => (
           <article
             key={project.title}
-            className="flex min-h-64 flex-col justify-between rounded-lg border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/[0.06]"
+            className="flex min-h-64 flex-col justify-between rounded-lg border border-white/10 bg-white/3 p-6 transition hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/6"
           >
             <div>
               <h3 className="text-xl font-semibold text-zinc-50">
@@ -44,7 +46,11 @@ export function ProjectsSection() {
                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-200 transition hover:text-cyan-300 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
                   >
                     {link.label}
-                    <span aria-hidden="true">↗</span>
+                    <ExternalLink
+                      className="size-4 shrink-0"
+                      strokeWidth={1.75}
+                      aria-hidden="true"
+                    />
                     <span className="sr-only"> (nouvel onglet)</span>
                   </a>
                 ))}
