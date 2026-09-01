@@ -102,7 +102,7 @@ jobs:
     if: needs.release.outputs.released == 'true'
     uses: ./.github/workflows/deploy.yml
     with:
-      commit_sha: ${{ github.sha }}
+      release_ref: ${{ needs.release.outputs.release_tag }}
       image_tag: ${{ needs.release.outputs.image_tag }}
     secrets: inherit
     permissions:
