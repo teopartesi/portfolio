@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test:release-config": "node --test tests/release-config.test.mjs",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
@@ -22,18 +23,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "gitmojis": "^3.15.0",
     "semantic-release": "^25.0.8",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "release": {
-    "branches": [
-      "main"
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/github"
-    ]
   }
 }

@@ -158,8 +158,9 @@ le tag d'image GHCR correspondant à la version Semantic Release.
 
 Les responsabilités GitHub Actions sont séparées dans trois workflows :
 
-- `ci.yml` lance le lint, le build Next.js et le smoke test Docker sur les pull
-  requests et les pushs vers `main` ;
+- `ci.yml` lance le lint, les tests de configuration Semantic Release, le build
+  Next.js et le smoke test Docker sur les pull requests et les pushs vers
+  `main` ;
 - `release.yml` orchestre manuellement la validation, le versionnage puis le
   déploiement depuis `main` ;
 - `deploy.yml` est appelé par le workflow de release pour publier l'image sur
@@ -172,8 +173,9 @@ une version :
 2. sélectionner **Portfolio Release** ;
 3. cliquer sur **Run workflow** et sélectionner la branche `main` ;
 4. attendre la validation du lint, du build et du smoke test Docker ;
-5. laisser `semantic-release` analyser les Conventional Commits depuis le
-   dernier tag et créer le nouveau tag ainsi que la GitHub Release ;
+5. laisser `semantic-release` analyser les commits Gitmoji et Conventional
+   Commits depuis le dernier tag, puis créer le nouveau tag ainsi que la GitHub
+   Release ;
 6. laisser le workflow réutilisable publier l'image avec les tags `latest` et
    `<version>`, puis déployer cette version sur le VPS.
 
@@ -184,6 +186,37 @@ exactement le code de la release, mais il n'est plus publié comme tag d'image.
 Le workflow refuse explicitement une branche autre que `main`. Si aucun commit
 ne justifie une nouvelle version, `semantic-release` ne crée pas de tag et le
 déploiement est ignoré. Il ne publie aucun paquet npm.
+
+### Convention des commits de release
+
+Semantic Release accepte les messages au format Gitmoji officiel, en Unicode ou
+en shortcode, ainsi que les Conventional Commits déjà utilisés dans le dépôt :
+
+```text
+💄 Add or update the navigation styles
+🐛 (link): Fix the portfolio URL
+:sparkles: Add a project section
+feat: add a contact form
+fix(nav): repair the mobile menu
+```
+
+Le premier type du message fait foi. `feat: ➕ Add a dependency` est donc une
+fonctionnalité Conventional Commit, tandis que `➕ Add a dependency` suit la
+règle Gitmoji. Le niveau de version provient du champ `semver` de la liste
+officielle Gitmoji :
+
+| Intention | Version |
+|-----------|---------|
+| `💥` ou un breaking change (`!`, `BREAKING CHANGE(S)`) | majeure |
+| `✨` | mineure |
+| `🐛`, `💄`, `➕` et les autres Gitmojis marqués `patch` | corrective |
+| `📝`, `♻️` et les Gitmojis sans niveau SemVer | aucune à eux seuls |
+
+Lorsqu'une version est créée, les notes regroupent tous les Gitmojis reconnus,
+y compris ceux qui ne déclenchent pas seuls une release. Les sélecteurs de
+variation Unicode sont normalisés : `⚡` et `⚡️` ont le même comportement. La
+liste et les niveaux de référence sont ceux du package officiel
+[`gitmojis`](https://www.npmjs.com/package/gitmojis).
 
 La GitHub Release est créée avant le déploiement, conformément au flux de
 promotion choisi. Si la publication de l'image ou le déploiement VPS échoue, la
