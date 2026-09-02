@@ -1,7 +1,13 @@
 import { Mail } from "lucide-react";
+import { FaInstagram, FaLinkedinIn } from "react-icons/fa6";
 
-import { profile } from "@/lib/data";
+import { profile, contact } from "@/lib/data";
 import { Section } from "@/components/ui/Section";
+
+const socialIcons = {
+  instagram: FaInstagram,
+  linkedin: FaLinkedinIn,
+};
 
 export function ContactSection() {
   return (
@@ -13,18 +19,34 @@ export function ContactSection() {
     >
       <div className="rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-6 sm:p-8">
         <p className="max-w-2xl text-lg leading-8 text-zinc-100">
-          Je suis disponible pour échanger autour du développement web, du
-          DevOps et de l&apos;automatisation des déploiements.
+          {contact.summary}
         </p>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <a
             href={`mailto:${profile.email}`}
-            className="inline-flex h-12 w-fit items-center justify-center rounded-full bg-zinc-50 px-6 text-sm font-semibold text-zinc-950 transition hover:bg-cyan-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+            className="inline-flex size-12 items-center justify-center rounded-full bg-zinc-50 px-6 text-sm font-semibold text-zinc-950 transition hover:bg-cyan-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
           >
             <Mail className="size-5 shrink-0" aria-hidden="true" />
             <span className="sr-only">M&apos;envoyer un e-mail</span>
           </a>
-          <span className="text-sm text-zinc-400">{profile.email}</span>
+          {contact.links.map((link) => {
+            const Icon = socialIcons[link.platform];
+
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex size-12 items-center justify-center rounded-full bg-zinc-50 text-zinc-950 transition hover:bg-cyan-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+              >
+                <Icon className="size-5 shrink-0" aria-hidden="true" />
+                <span className="sr-only">
+                  {link.label} (nouvel onglet)
+                </span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </Section>
