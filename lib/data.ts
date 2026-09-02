@@ -163,3 +163,20 @@ export const experience = [
     technologies: [],
   },
 ];
+
+export const contact = {
+  summary:
+    "Je suis disponible pour échanger autour du développement web, du DevOps et de l'automatisation des déploiements.",
+  links: [
+    {
+      platform: "linkedin",
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/téo-partesi/",
+    },
+    {
+      platform: "instagram",
+      label: "Instagram",
+      href: "https://www.instagram.com/teo_partesi/",
+    },
+  ],
+} as const;

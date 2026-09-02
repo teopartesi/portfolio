@@ -64,10 +64,16 @@ git clone https://github.com/teopartesi/portfolio.git
 
 cd portfolio
 
-npm ci
+mise install
 
-npm run dev
+mise exec -- npm ci
+
+mise exec -- npm run dev
 ```
+
+Le dépôt épingle Node.js 24.18.0 et npm 11.16.0 dans `mise.toml`. Utiliser
+`mise exec --` évite qu'une autre version globale de Node.js ou de npm soit
+employée par inadvertance.
 
 ---
 
