@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.4.0](https://github.com/teopartesi/portfolio/compare/v1.3.0...v1.4.0) (2026-09-03)
+
+
+### ✨ Introduce new features
+
+* Add 🌐link for social media ([edc89f2](https://github.com/teopartesi/portfolio/commit/edc89f2f0d0828a3e9b72aee3746d9805f61384c))
+
 # [1.3.0](https://github.com/teopartesi/portfolio/compare/v1.2.0...v1.3.0) (2026-09-01)
 
 
