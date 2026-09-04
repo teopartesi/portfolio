@@ -14,7 +14,6 @@ export const navigation = [
   { label: "🧰 Compétences", href: "#skills" },
   { label: "🚀 Projets", href: "#projects" },
   { label: "🧭 Parcours", href: "#experience" },
-  { label: "💬 Contact", href: "#contact" },
 ];
 
 export const skills = [
@@ -168,6 +167,11 @@ export const contact = {
   summary:
     "Je suis disponible pour échanger autour du développement web, du DevOps et de l'automatisation des déploiements.",
   links: [
+    {
+      platform: "github",
+      label: "GitHub",
+      href: "https://github.com/teopartesi",
+    },
     {
       platform: "linkedin",
       label: "LinkedIn",
