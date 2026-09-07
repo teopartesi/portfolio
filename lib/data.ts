@@ -14,7 +14,6 @@ export const navigation = [
   { label: "🧰 Compétences", href: "#skills" },
   { label: "🚀 Projets", href: "#projects" },
   { label: "🧭 Parcours", href: "#experience" },
-  { label: "💬 Contact", href: "#contact" },
 ];
 
 export const skills = [
@@ -169,6 +168,11 @@ export const contact = {
     "Je suis disponible pour échanger autour du développement web, du DevOps et de l'automatisation des déploiements.",
   links: [
     {
+      platform: "github",
+      label: "GitHub",
+      href: "https://github.com/teopartesi",
+    },
+    {
       platform: "linkedin",
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/téo-partesi/",
@@ -177,6 +181,11 @@ export const contact = {
       platform: "instagram",
       label: "Instagram",
       href: "https://www.instagram.com/teo_partesi/",
+    },
+    {
+      platform: "mail",
+      label: "Mail",
+      href: "mailto:teopart@hotmail.com",
     },
   ],
 } as const;
