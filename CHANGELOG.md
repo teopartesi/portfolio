@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.1](https://github.com/teopartesi/portfolio/compare/v1.4.0...v1.4.1) (2026-09-07)
+
+
+### 🎨 Improve structure / format of the code
+
+* Add ☎️Contact 🌐Link in Menu Profil ([0f9a96d](https://github.com/teopartesi/portfolio/commit/0f9a96dda1f4b53fd98ed7080717c0b91259b9b6))
+
+
+### 🔍️ Improve SEO
+
+* Add Metadata to ⬆️update  SEO ([54bdf7a](https://github.com/teopartesi/portfolio/commit/54bdf7ab95411a6621305b4431a31b6336cdb825))
+
+
+### 🔥 Remove code or files
+
+* **front:** Delete ➖contact part to ➕add 🌐link in footer ([16f5301](https://github.com/teopartesi/portfolio/commit/16f53016bd694b9c6dbef1ca42fd025db1ec95be))
+
 # [1.4.0](https://github.com/teopartesi/portfolio/compare/v1.3.0...v1.4.0) (2026-09-03)
 
 
