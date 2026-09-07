@@ -27,19 +27,12 @@ Un portfolio moderne développé avec **Next.js**, **TypeScript** et **Tailwind 
 
 ---
 
-## 📸 Aperçu
-
-<p align="center">
-<img src="./public/images/preview.png" width="900">
-</p>
-
----
-
 ## ✨ Fonctionnalités
 
 - 🎨 Design moderne
 - 📱 Responsive
 - ⚡ Performance optimisée
+- 🔎 Métadonnées SEO et aperçus sociaux
 - 🌙 Dark Mode
 - 📂 Présentation des projets
 - 📧 Formulaire de contact
