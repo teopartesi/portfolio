@@ -1,3 +1,13 @@
+export const siteMetadata = {
+  url: "https://teopartesi.fr",
+  name: "Portfolio de Téo Partesi",
+  title: "Téo Partesi | DevOps & Développeur Web",
+  description:
+    "Portfolio de Téo Partesi, ingénieur DevOps et développeur web : projets Next.js, automatisation CI/CD, Docker, cloud et déploiements fiables.",
+  author: "Téo Partesi",
+  locale: "fr_FR",
+} as const;
+
 export const profile = {
   name: "Téo PARTESI",
   role: "DevOps Engineer ⚙️ / Développeur Web 💻",

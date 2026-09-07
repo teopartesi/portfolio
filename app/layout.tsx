@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+
+import { siteMetadata } from "@/lib/data";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Portfolio DevOps / DevWeb",
-  description:
-    "Portfolio personnel moderne pour présenter un profil DevOps et développement web.",
+  metadataBase: new URL(siteMetadata.url),
+  title: siteMetadata.title,
+  description: siteMetadata.description,
   keywords: [
     "portfolio",
     "devops",
@@ -13,7 +16,23 @@ export const metadata: Metadata = {
     "typescript",
     "tailwindcss",
   ],
-  authors: [{ name: "Ton Nom" }],
+  authors: [{ name: siteMetadata.author, url: siteMetadata.url }],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    url: "/",
+    siteName: siteMetadata.name,
+    locale: siteMetadata.locale,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+  },
 };
 
 export default function RootLayout({
