@@ -7,6 +7,7 @@ const socialIcons = {
   github: FaGithub,
   instagram: FaInstagram,
   linkedin: FaLinkedinIn,
+  mail:Mail,
 };
 
 export function Footer() {
@@ -20,13 +21,6 @@ export function Footer() {
           aria-label="Liens de contact"
           className="flex flex-wrap items-center justify-center gap-3"
         >
-          <a
-            href={`mailto:${profile.email}`}
-            className="inline-flex size-10 items-center justify-center rounded-full bg-zinc-50 text-zinc-950 transition hover:bg-cyan-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
-          >
-            <Mail className="size-5 shrink-0" aria-hidden="true" />
-            <span className="sr-only">M&apos;envoyer un e-mail</span>
-          </a>
           {contact.links.map((link) => {
             const Icon = socialIcons[link.platform];
 

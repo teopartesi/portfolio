@@ -182,5 +182,10 @@ export const contact = {
       label: "Instagram",
       href: "https://www.instagram.com/teo_partesi/",
     },
+    {
+      platform: "mail",
+      label: "Mail",
+      href: "mailto:teopart@hotmail.com",
+    },
   ],
 } as const;

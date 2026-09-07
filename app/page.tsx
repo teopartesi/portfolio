@@ -8,7 +8,7 @@ import { SkillsSection } from "@/components/sections/SkillsSection";
 
 export default function Home() {
   return (
-    <>
+    <div>
       <Navbar />
       <main>
         <HeroSection />
@@ -18,6 +18,6 @@ export default function Home() {
         <ExperienceSection />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
