@@ -32,7 +32,7 @@ Un portfolio moderne développé avec **Next.js**, **TypeScript** et **Tailwind 
 - 🎨 Design moderne
 - 📱 Responsive
 - ⚡ Performance optimisée
-- 🔎 Métadonnées SEO et aperçus sociaux
+- 🔎 Métadonnées SEO, sitemap, robots.txt et aperçus sociaux
 - 🌙 Dark Mode
 - 📂 Présentation des projets
 - 📧 Formulaire de contact
