@@ -30,10 +30,10 @@ export function HeroSection() {
               />
             </a>
             <a
-              href="#contact"
+              href="#experience"
               className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm font-semibold text-zinc-100 transition hover:border-white/30 hover:bg-white/10"
             >
-              Me contacter
+              Voir mon parcours
               <MessageCircle
                 className="size-4 shrink-0 text-cyan-300"
                 strokeWidth={1.75}
