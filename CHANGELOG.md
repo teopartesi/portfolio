@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/teopartesi/portfolio/compare/v1.4.1...v1.4.2) (2026-09-09)
+
+
+### 🔍️ Improve SEO
+
+* Add sitempas and 🤖robot.txt ([a8e6164](https://github.com/teopartesi/portfolio/commit/a8e6164f89ffed03637379aa44bd3866824c3510))
+
 ## [1.4.1](https://github.com/teopartesi/portfolio/compare/v1.4.0...v1.4.1) (2026-09-07)
 
 
