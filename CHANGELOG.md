@@ -1,3 +1,20 @@
+# [1.5.0](https://github.com/teopartesi/portfolio/compare/v1.4.2...v1.5.0) (2026-09-24)
+
+
+### ✅ Add, update, or pass tests
+
+* **release:** Update tests and config semantic ([a67874f](https://github.com/teopartesi/portfolio/commit/a67874f8a6bac66a7510646904a88900a330eb3f))
+
+
+### ✨ Introduce new features
+
+* **release:** Add semantic-release-gitmoji-config ([297d5d2](https://github.com/teopartesi/portfolio/commit/297d5d256d6bf8d3fc780842e046ee6e53bbc174))
+
+
+### 🚀 Deploy stuff
+
+* **ci:** Add actions-runners in VM deployment ([3351ee4](https://github.com/teopartesi/portfolio/commit/3351ee4bf822aeddde17bc2eaebb28c79c0d98e2))
+
 # Changelog
 
 ## [1.4.2](https://github.com/teopartesi/portfolio/compare/v1.4.1...v1.4.2) (2026-09-09)
