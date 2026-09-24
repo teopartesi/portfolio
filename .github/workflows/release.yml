@@ -104,7 +104,6 @@ jobs:
     with:
       release_ref: ${{ needs.release.outputs.release_tag }}
       image_tag: ${{ needs.release.outputs.image_tag }}
-    secrets: inherit
     permissions:
       contents: read
       packages: write
