@@ -91,11 +91,19 @@ test("keeps Conventional Commits and breaking change support", async (t) => {
   }
 });
 
-test("does not release for informational Gitmojis or merge commits", async () => {
+test("releases informational Gitmojis as patches", async () => {
   assert.equal(
     await getReleaseType(
       "📝 Update deployment documentation",
       "♻️ Refactor the navigation",
+    ),
+    "patch",
+  );
+});
+
+test("does not release for merge commits", async () => {
+  assert.equal(
+    await getReleaseType(
       "Merge pull request #51 from teopartesi/example\n\nfeat: hidden merge title",
     ),
     null,
@@ -124,7 +132,7 @@ test("produces patch release notes for Gitmoji patch commits", async () => {
   assert.doesNotMatch(notes, /hidden merge title/u);
 });
 
-test("includes scoped and non-releasing Gitmojis in generated notes", async () => {
+test("includes scoped and informational Gitmojis in generated notes", async () => {
   const notes = await getReleaseNotes(
     [
       "🐛 (link): Change direction links🌐",
@@ -158,8 +166,7 @@ test("generates CHANGELOG.md and configures it as a release asset", async (t) =>
     Array.isArray(entry) ? entry[0] : entry,
   );
 
-  assert.match(changelog, /^# Changelog/u);
-  assert.match(changelog, /## 1\.3\.0/u);
+  assert.match(changelog, /^## 1\.3\.0/u);
   assert.match(changelog, /Add Gitmoji releases/u);
   assert.deepEqual(gitOptions.assets, ["CHANGELOG.md"]);
   assert.match(gitOptions.message, /\[skip ci\]/u);

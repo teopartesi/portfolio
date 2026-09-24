@@ -1,6 +1,8 @@
 import sharedConfig from 'semantic-release-gitmoji-config';
 
-export default {
+const releaseConfig = {
   ...sharedConfig,
   branches: ['main'],
 };
+
+export default releaseConfig;
