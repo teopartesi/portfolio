@@ -204,18 +204,20 @@ fix(nav): repair the mobile menu
 Le premier type du message fait foi. `feat: ➕ Add a dependency` est donc une
 fonctionnalité Conventional Commit, tandis que `➕ Add a dependency` suit la
 règle Gitmoji. Le niveau de version provient du champ `semver` de la liste
-officielle Gitmoji :
+officielle Gitmoji lorsqu'il est renseigné. Lorsqu'il est absent, le preset
+`semantic-release-gitmoji-config` applique volontairement une version corrective
+afin que chaque intention Gitmoji puisse déclencher une release :
 
 | Intention | Version |
 |-----------|---------|
 | `💥` ou un breaking change (`!`, `BREAKING CHANGE(S)`) | majeure |
 | `✨` | mineure |
 | `🐛`, `💄`, `➕` et les autres Gitmojis marqués `patch` | corrective |
-| `📝`, `♻️` et les Gitmojis sans niveau SemVer | aucune à eux seuls |
+| `📝`, `♻️` et les Gitmojis sans niveau SemVer | corrective |
 
-Lorsqu'une version est créée, les notes regroupent tous les Gitmojis reconnus,
-y compris ceux qui ne déclenchent pas seuls une release. Les sélecteurs de
-variation Unicode sont normalisés : `⚡` et `⚡️` ont le même comportement. La
+Lorsqu'une version est créée, les notes regroupent tous les Gitmojis reconnus
+par intention. Les sélecteurs de variation Unicode sont normalisés : `⚡` et
+`⚡️` ont le même comportement. La
 liste et les niveaux de référence sont ceux du package officiel
 [`gitmojis`](https://www.npmjs.com/package/gitmojis).
 
