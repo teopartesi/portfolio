@@ -1,3 +1,11 @@
+## [1.5.1](https://github.com/teopartesi/portfolio/compare/v1.5.0...v1.5.1) (2026-09-30)
+
+
+### 🚀 Deploy stuff
+
+* **azure:** Add job to deploy portfolio in ☁️ cloud ([8630daa](https://github.com/teopartesi/portfolio/commit/8630daa943636d10047115133723f1997deaa431))
+* **release:** 🔄️Automate deploy in ☁️ cloud with release ([5441487](https://github.com/teopartesi/portfolio/commit/54414876fbd74459f8ce58f99494d4bdc0963c77))
+
 # [1.5.0](https://github.com/teopartesi/portfolio/compare/v1.4.2...v1.5.0) (2026-09-24)
 
 
