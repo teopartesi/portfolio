@@ -101,6 +101,7 @@ jobs:
     needs: release
     if: needs.release.outputs.released == 'true'
     uses: ./.github/workflows/deploy.yml
+    secrets: inherit
     with:
       release_ref: ${{ needs.release.outputs.release_tag }}
       image_tag: ${{ needs.release.outputs.image_tag }}
