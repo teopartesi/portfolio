@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/teopartesi/portfolio/compare/v1.5.1...v1.5.2) (2026-09-30)
+
+
+### 💚 Fix CI Build
+
+* **cloud:** Fix deploy in ☁️ cloud ([c4b8f56](https://github.com/teopartesi/portfolio/commit/c4b8f56cb2a18f3d1abeacd2aaab946d1287690b))
+
 ## [1.5.1](https://github.com/teopartesi/portfolio/compare/v1.5.0...v1.5.1) (2026-09-30)
 
 
