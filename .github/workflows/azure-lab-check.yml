@@ -1,0 +1,40 @@
+name: Azure Lab - Test OIDC
+
+on:
+    workflow_dispatch:
+
+jobs:
+    check-azure:
+        name: ☁️ Check Azure OIDC
+        runs-on: ubuntu-latest
+        environment: azure-lab
+        timeout-minutes: 5
+        permissions:
+            id-token: write
+
+        steps:
+            - name: Azure Connection Check
+              uses: azure/login@v3
+              with:
+                  client-id: ${{ secrets.AZURE_CLIENT_ID }}
+                  tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+                  subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+            - name: Display context on connection
+              run: |
+                    az account show \
+                        --query '{abonnement: name, typeIdentite:user.type}' \
+                        --output table
+
+            - name: Read Config Portfolio
+              run: |
+                    az extension add \
+                        --name containerapp \
+                        --upgrade \
+                        --only-show-errors
+
+                    az containerapp show \
+                        --name ca-portfolio-lab-hello \
+                        --resource-group rg-portfolio-cloud-lab \
+                        --query '{nom:name, etat:properties.provisioningState, image:properties.template.containers[0].image}' \
+                        --output json
