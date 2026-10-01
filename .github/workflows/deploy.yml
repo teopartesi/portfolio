@@ -47,8 +47,9 @@ jobs:
 
   deploy-vps:
     name: 🚀 Deploy ${{ inputs.image_tag }}
-    runs-on: [self-hosted, Linux, x64, portfolio-prod]
+    runs-on: [self-hosted, linux, portfolio-prod]
     needs: publish
+    environment: portfolio-prod
     permissions:
       contents: read
       packages: read
