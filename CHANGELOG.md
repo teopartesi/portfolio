@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/teopartesi/portfolio/compare/v1.6.1...v1.7.0) (2026-10-01)
+
+
+### ✨ Introduce new features
+
+* **observability:** Add structured Azure Blob logs ([aef4802](https://github.com/teopartesi/portfolio/commit/aef480290a0e7f6f5e3951131fb12871d7178099))
+
 ## [1.6.1](https://github.com/teopartesi/portfolio/compare/v1.6.0...v1.6.1) (2026-10-01)
 
 
