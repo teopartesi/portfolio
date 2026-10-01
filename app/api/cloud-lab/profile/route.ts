@@ -1,19 +1,17 @@
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const BLOB_URL =
-  "https://stteoportfoliolab01.blob.core.windows.net/portfolio-assets/profile.png";
-
 export async function GET() {
   try {
     const identityEndpoint = process.env.IDENTITY_ENDPOINT;
     const identityHeader = process.env.IDENTITY_HEADER;
+    const blobUrl = process.env.AZURE_BLOB_PROFILE_URL;
 
-    if (!identityEndpoint || !identityHeader) {
+    if (!identityEndpoint || !identityHeader || !blobUrl) {
       return Response.json(
         {
-          error: "Identité managée Azure indisponible",
-          environment: "Cette route doit être exécutée dans Azure Container Apps",
+          error: "Configuration Azure indisponible",
+          environment: "Cette route nécessite une identité managée et une URL Blob configurée",
         },
         { status: 503 },
       );
@@ -48,7 +46,7 @@ export async function GET() {
       throw new Error("Azure n'a renvoyé aucun jeton d'accès");
     }
 
-    const blobResponse = await fetch(BLOB_URL, {
+    const blobResponse = await fetch(blobUrl, {
       headers: {
         Authorization: `Bearer ${tokenData.access_token}`,
         "x-ms-version": "2023-11-03",
