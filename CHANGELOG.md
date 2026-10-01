@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/teopartesi/portfolio/compare/v1.6.0...v1.6.1) (2026-10-01)
+
+
+### ♻️ Refactor code
+
+* **api:** Configure Azure Blob URL ([f1fcc8f](https://github.com/teopartesi/portfolio/commit/f1fcc8f4ce7ece203a193b891a60ac9ce517605d))
+
 # [1.6.0](https://github.com/teopartesi/portfolio/compare/v1.5.2...v1.6.0) (2026-10-01)
 
 
