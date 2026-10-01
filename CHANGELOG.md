@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/teopartesi/portfolio/compare/v1.5.2...v1.6.0) (2026-10-01)
+
+
+### ✨ Introduce new features
+
+* **api:** Add api for image in ☁️ cloud azure ([dd68e87](https://github.com/teopartesi/portfolio/commit/dd68e879dfe009bad8c7ea06cd0712d963836d5b))
+
+
+### 📝 Add or update documentation
+
+* **docs:** Document Azure Container Apps deployment and rollback ([5a03d7e](https://github.com/teopartesi/portfolio/commit/5a03d7e5625af5dfe1387606ecbd71f17e5c8785))
+
 ## [1.5.2](https://github.com/teopartesi/portfolio/compare/v1.5.1...v1.5.2) (2026-09-30)
 
 
