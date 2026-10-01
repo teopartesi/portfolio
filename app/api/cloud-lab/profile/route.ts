@@ -2,6 +2,9 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const startedAt = Date.now();
+  const requestId = crypto.randomUUID();
+
   try {
     const identityEndpoint = process.env.IDENTITY_ENDPOINT;
     const identityHeader = process.env.IDENTITY_HEADER;
@@ -11,7 +14,9 @@ export async function GET() {
       return Response.json(
         {
           error: "Configuration Azure indisponible",
-          environment: "Cette route nécessite une identité managée et une URL Blob configurée",
+          environment:
+            "Cette route nécessite une identité managée et une URL Blob configurée",
+          requestId,
         },
         { status: 503 },
       );
@@ -60,19 +65,45 @@ export async function GET() {
       );
     }
 
+    const contentType =
+      blobResponse.headers.get("content-type") ?? "image/png";
+
+    console.info(
+      JSON.stringify({
+        event: "azure_blob_profile_read",
+        outcome: "success",
+        requestId,
+        httpStatus: blobResponse.status,
+        contentType,
+        durationMs: Date.now() - startedAt,
+      }),
+    );
+
     return new Response(blobResponse.body, {
       status: 200,
       headers: {
-        "Content-Type":
-          blobResponse.headers.get("content-type") ?? "image/png",
+        "Content-Type": contentType,
         "Cache-Control": "private, no-store",
+        "X-Request-Id": requestId,
       },
     });
   } catch (error) {
-    console.error("Lecture du blob Azure impossible", error);
+    console.error(
+      JSON.stringify({
+        event: "azure_blob_profile_read",
+        outcome: "failure",
+        requestId,
+        message:
+          error instanceof Error ? error.message : "Erreur inconnue",
+        durationMs: Date.now() - startedAt,
+      }),
+    );
 
     return Response.json(
-      { error: "Lecture du fichier Azure impossible" },
+      {
+        error: "Lecture du fichier Azure impossible",
+        requestId,
+      },
       { status: 500 },
     );
   }
