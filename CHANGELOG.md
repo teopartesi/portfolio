@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/teopartesi/portfolio/compare/v1.7.0...v1.7.1) (2026-10-01)
+
+
+### 🚀 Deploy stuff
+
+* **scaleway:** Add environment for deploy in Scaleway ([073af52](https://github.com/teopartesi/portfolio/commit/073af52b9c9fa75dd49f6e84537e1ad07bbabbeb))
+
 # [1.7.0](https://github.com/teopartesi/portfolio/compare/v1.6.1...v1.7.0) (2026-10-01)
 
 
