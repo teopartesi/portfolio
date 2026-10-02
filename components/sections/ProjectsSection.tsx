@@ -15,13 +15,13 @@ export function ProjectsSection() {
         {projects.map((project) => (
           <article
             key={project.title}
-            className="flex min-h-64 flex-col justify-between rounded-lg border border-white/10 bg-white/3 p-6 transition hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/6"
+            className="flex min-h-64 flex-col justify-between rounded-lg border border-border bg-surface-muted p-6 transition hover:-translate-y-1 hover:border-accent/40 hover:bg-surface-hover"
           >
             <div>
-              <h3 className="text-xl font-semibold text-zinc-50">
+              <h3 className="text-xl font-semibold text-heading">
                 {project.title}
               </h3>
-              <p className="mt-4 leading-7 text-zinc-400">
+              <p className="mt-4 leading-7 text-muted">
                 {project.description}
               </p>
             </div>
@@ -30,20 +30,20 @@ export function ProjectsSection() {
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-cyan-300/10 px-3 py-1 text-xs font-medium text-cyan-200"
+                    className="rounded-full bg-accent-muted px-3 py-1 text-xs font-medium text-accent"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
-              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 border-t border-white/10 pt-5">
+              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 border-t border-border pt-5">
                 {project.links.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-200 transition hover:text-cyan-300 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground transition hover:text-accent focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                   >
                     {link.label}
                     <ExternalLink

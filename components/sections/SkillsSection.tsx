@@ -24,17 +24,17 @@ export function SkillsSection() {
           return (
             <article
               key={group.category}
-              className="rounded-lg border border-white/10 bg-zinc-900/60 p-6"
+              className="rounded-lg border border-border bg-surface/60 p-6"
             >
               <div className="flex items-center gap-3">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-cyan-300/20 bg-cyan-300/10 text-cyan-300">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent-muted text-accent">
                   <CategoryIcon
                     className="size-5"
                     strokeWidth={1.75}
                     aria-hidden="true"
                   />
                 </span>
-                <h3 className="text-xl font-semibold text-zinc-50">
+                <h3 className="text-xl font-semibold text-heading">
                   {group.category}
                 </h3>
               </div>
@@ -42,7 +42,7 @@ export function SkillsSection() {
                 {group.items.map((skill) => (
                   <span
                     key={skill}
-                    className="rounded-full border border-white/10 bg-white/4 px-3 py-1 text-sm text-zinc-300"
+                    className="rounded-full border border-border bg-surface-muted px-3 py-1 text-sm text-foreground"
                   >
                     {skill}
                   </span>
