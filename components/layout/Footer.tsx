@@ -12,8 +12,8 @@ const socialIcons = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 py-8">
-      <div className="mx-auto grid max-w-6xl gap-5 px-5 text-sm text-zinc-500 sm:px-8 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+    <footer className="border-t border-border py-8">
+      <div className="mx-auto grid max-w-6xl gap-5 px-5 text-sm text-subtle sm:px-8 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
         <p className="text-center lg:text-left">
           © 2026 {profile.name}. Déployé sur Scaleway.
         </p>
@@ -30,7 +30,7 @@ export function Footer() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex size-10 items-center justify-center rounded-full bg-zinc-50 text-zinc-950 transition hover:bg-cyan-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+                className="inline-flex size-10 items-center justify-center rounded-full bg-heading text-background transition hover:bg-accent hover:text-on-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               >
                 <Icon className="size-5 shrink-0" aria-hidden="true" />
                 <span className="sr-only">

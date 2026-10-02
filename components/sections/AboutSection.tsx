@@ -36,19 +36,19 @@ export function AboutSection() {
           return (
             <article
               key={item.title}
-              className="rounded-lg border border-white/10 bg-white/3 p-6 transition hover:border-cyan-300/40 hover:bg-white/5"
+              className="rounded-lg border border-border bg-surface-muted p-6 transition hover:border-accent/40 hover:bg-surface-hover"
             >
-              <span className="flex size-10 items-center justify-center rounded-lg border border-cyan-300/20 bg-cyan-300/10 text-cyan-300">
+              <span className="flex size-10 items-center justify-center rounded-lg border border-accent/20 bg-accent-muted text-accent">
                 <ItemIcon
                   className="size-5"
                   strokeWidth={1.75}
                   aria-hidden="true"
                 />
               </span>
-              <h3 className="mt-5 text-lg font-semibold text-zinc-50">
+              <h3 className="mt-5 text-lg font-semibold text-heading">
                 {item.title}
               </h3>
-              <p className="mt-3 leading-7 text-zinc-400">{item.text}</p>
+              <p className="mt-3 leading-7 text-muted">{item.text}</p>
             </article>
           );
         })}

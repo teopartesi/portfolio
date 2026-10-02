@@ -5,6 +5,7 @@ import { Mail } from "lucide-react";
 import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa6";
 
 import { navigation, profile, contact } from "@/lib/data";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const socialIcons = {
   github: FaGithub,
@@ -15,35 +16,37 @@ const socialIcons = {
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-zinc-950/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="mx-auto max-w-6xl px-5 py-4 sm:px-8">
         <nav
           aria-label="Navigation principale"
           className="flex items-center justify-between gap-6"
         >
           <a href="" className="group flex flex-col">
-            <span className="font-mono text-sm font-semibold uppercase tracking-[0.22em] text-zinc-50">
+            <span className="font-mono text-sm font-semibold uppercase tracking-[0.22em] text-heading">
               {profile.name}
             </span>
-            <span className="text-xs text-zinc-500 transition-colors group-hover:text-cyan-300">
+            <span className="text-xs text-subtle transition-colors group-hover:text-accent">
               DevOps / DevWeb
             </span>
           </a>
 
-          <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/3 p-1 md:flex">
+          <div className="hidden items-center gap-1 rounded-full border border-border bg-surface-muted p-1 md:flex">
             {navigation.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-full px-4 py-2 text-sm text-zinc-300 transition hover:bg-white/10 hover:text-zinc-50"
+                className="rounded-full px-4 py-2 text-sm text-muted transition hover:bg-surface-hover hover:text-heading"
               >
                 {item.label}
               </a>
             ))}
           </div>
 
-          <Popover className="relative shrink-0">
-            <PopoverButton className="flex size-10 items-center justify-center overflow-hidden rounded-full border border-cyan-300/40 bg-zinc-900 p-0.5 shadow-md shadow-cyan-950/40 transition duration-200 hover:scale-105 hover:border-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 data-open:border-cyan-200 data-open:ring-2 data-open:ring-cyan-300/20 motion-reduce:transform-none motion-reduce:transition-none sm:size-11">
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Popover className="relative shrink-0">
+            <PopoverButton className="flex size-10 items-center justify-center overflow-hidden rounded-full border border-accent/40 bg-surface p-0.5 shadow-md shadow-shadow-accent transition duration-200 hover:scale-105 hover:border-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent data-open:border-accent-hover data-open:ring-2 data-open:ring-accent/20 motion-reduce:transform-none motion-reduce:transition-none sm:size-11">
               <Image
                 src="/favicon.ico"
                 alt=""
@@ -59,9 +62,9 @@ export function Navbar() {
                 anchor="bottom end"
                 portal
                 transition
-                className="z-60 flex w-52 max-w-[calc(100vw-2rem)] origin-top-right flex-col gap-1 rounded-xl border border-white/10 bg-zinc-950/95 p-2 shadow-2xl shadow-black/40 backdrop-blur-xl transition duration-150 ease-out [--anchor-gap:0.75rem] [--anchor-padding:1rem] data-closed:-translate-y-1 data-closed:scale-95 data-closed:opacity-0 motion-reduce:transform-none motion-reduce:transition-none"
+                className="z-60 flex w-52 max-w-[calc(100vw-2rem)] origin-top-right flex-col gap-1 rounded-xl border border-border bg-background/95 p-2 shadow-2xl shadow-shadow-overlay backdrop-blur-xl transition duration-150 ease-out [--anchor-gap:0.75rem] [--anchor-padding:1rem] data-closed:-translate-y-1 data-closed:scale-95 data-closed:opacity-0 motion-reduce:transform-none motion-reduce:transition-none"
               >
-                <p className="px-3 pb-2 pt-1 font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
+                <p className="px-3 pb-2 pt-1 font-mono text-xs uppercase tracking-[0.18em] text-subtle">
                   Me Contacter
                 </p>               
                 {contact.links.map((link) => {
@@ -73,16 +76,17 @@ export function Navbar() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-300 transition hover:bg-white/10 hover:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-cyan-300"
+                    className="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted transition hover:bg-surface-hover hover:text-heading focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent"
                   >
                     {link.label}
-                    <Icon className="size-4 shrink-0 text-cyan-300" aria-hidden="true"/>
+                    <Icon className="size-4 shrink-0 text-accent" aria-hidden="true"/>
                     <span className="sr-only"> (nouvel onglet)</span>
                   </a>
                   )
                 })}
               </PopoverPanel>
-          </Popover>
+            </Popover>
+          </div>
         </nav>
 
         <div
@@ -93,10 +97,11 @@ export function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="shrink-0 rounded-full border border-white/10 bg-white/3 px-3 py-2 text-sm text-zinc-300 transition hover:border-white/20 hover:bg-white/10 hover:text-zinc-50"
+              className="shrink-0 rounded-full border border-border bg-surface-muted px-3 py-2 text-sm text-muted transition hover:border-border-strong hover:bg-surface-hover hover:text-heading"
             >
               {item.label}
             </a>
+
           ))}
         </div>
       </div>
