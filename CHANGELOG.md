@@ -1,3 +1,15 @@
+## [1.7.2](https://github.com/teopartesi/portfolio/compare/v1.7.1...v1.7.2) (2026-10-05)
+
+
+### 💄 Add or update the UI and style files
+
+* **theme:** Add 🌓Dark/Light Mode ([14c2d46](https://github.com/teopartesi/portfolio/commit/14c2d46ea88d8fc24332747a9a556033198537e1))
+
+
+### 📝 Add or update documentation
+
+* **readme:** Actualiser la présentation et harmoniser les badges ([c71abb6](https://github.com/teopartesi/portfolio/commit/c71abb644a6ab04b57df4eceda789164e07a95c0))
+
 ## [1.7.1](https://github.com/teopartesi/portfolio/compare/v1.7.0...v1.7.1) (2026-10-01)
 
 
