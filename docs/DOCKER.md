@@ -8,7 +8,13 @@ Ce document décrit comment le portfolio est conteneurisé avec Docker et commen
 
 Le portfolio est exécuté dans un conteneur Docker afin de garantir un environnement proche entre le développement, la CI et la production.
 
-La CI construit et teste l'image. Sa publication sur GitHub Container Registry
+La CI construit et teste l'image, puis la scanne avec Trivy. Le workflow
+réutilisable `scans.yml` construit sa propre image locale
+`portfolio:<commit SHA>` depuis le Dockerfile ; les jobs GitHub Actions ne
+partagent pas leur daemon Docker. Le scan ne nécessite donc ni publication
+préalable ni connexion à GHCR.
+
+Sa publication sur GitHub Container Registry
 (GHCR) intervient uniquement lorsqu'une release est déclenchée manuellement
 depuis la branche `main`.
 
@@ -27,6 +33,17 @@ Le Dockerfile utilise une stratégie **multi-stage build**.
 Cette approche permet de réduire la taille finale de l'image tout en améliorant les performances de déploiement.
 
 L'application Next.js utilise `output: "standalone"` afin de produire une image de production plus légère.
+
+Le stage final `runner` met à jour les paquets Alpine `libcrypto3` et
+`libssl3` pour intégrer les correctifs OpenSSL disponibles. Il retire npm et
+npx, car le conteneur démarre directement avec `node server.js`. npm reste
+disponible dans les stages `deps` et `builder` pour installer et compiler
+l'application. Cette séparation retire de l'image de production les
+dépendances du gestionnaire de paquets inutilisées à l'exécution.
+
+Next.js et Sharp sont épinglés à des versions corrigées dans `package.json`
+et `package-lock.json`. Après une mise à jour, reconstruire l'image et
+relancer Trivy : un rapport généré pour une ancienne image ne change pas.
 
 ---
 

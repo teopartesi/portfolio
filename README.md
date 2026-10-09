@@ -66,7 +66,11 @@ préproduction qui conditionne le déploiement du VPS.
 
 La [CI](./.github/workflows/ci.yml) s'exécute sur les pull requests et les pushs
 vers `main` : lint, tests de la configuration de release, build Next.js, puis
-construction de l'image Docker et smoke test HTTP du conteneur.
+construction de l'image Docker, smoke test HTTP du conteneur et
+[scan Trivy](./.github/workflows/scans.yml). Le scan filtre les gravités `HIGH`
+et `CRITICAL`, ignore les vulnérabilités sans correctif connu et bloque la CI
+si des résultats restent. Le rapport SARIF est disponible dans les artifacts
+du run et dans l'onglet **Security and quality → Code scanning** du dépôt public.
 
 La publication d'une version se lance **manuellement** avec le workflow
 [Release](https://github.com/teopartesi/portfolio/actions/workflows/release.yml),

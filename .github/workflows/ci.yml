@@ -41,10 +41,19 @@ jobs:
       - name: Build application
         run: npm run build
 
+  scans:
+    name: 🔍 Scans
+    uses: ./.github/workflows/scans.yml
+    needs: quality
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
   docker-smoke:
     name: 🐳 Docker Smoke Test
     runs-on: ubuntu-latest
-    needs: quality
+    needs: scans
 
     steps:
       - name: Checkout repository

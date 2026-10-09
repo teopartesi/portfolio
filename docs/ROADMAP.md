@@ -35,7 +35,7 @@ Ce document présente les évolutions prévues pour améliorer l'infrastructure 
 
 - [ ] Ajouter les en-têtes de sécurité HTTP
 - [ ] Mettre en place Fail2Ban
-- [ ] Scanner régulièrement les images Docker avec Trivy
+- [x] Scanner les images Docker avec Trivy dans la CI
 - [ ] Renouvellement automatique des dépendances
 
 ---

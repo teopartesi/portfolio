@@ -144,11 +144,14 @@ le tag d'image GHCR correspondant à la version Semantic Release.
 
 ### Release, GHCR et deux cibles de déploiement
 
-Les responsabilités GitHub Actions sont séparées dans trois workflows :
+Les responsabilités GitHub Actions sont séparées dans quatre workflows :
 
 - `ci.yml` lance le lint, les tests de configuration Semantic Release, le build
-  Next.js et le smoke test Docker sur les pull requests et les pushs vers
+  Next.js, le smoke test Docker et le scan Trivy sur les pull requests et les pushs vers
   `main` ;
+- `scans.yml` est appelé uniquement par la CI, construit l'image locale du
+  portfolio et l'analyse avec Trivy ; il conserve le rapport SARIF comme
+  artifact pendant 14 jours et l'importe dans GitHub Code scanning ;
 - `release.yml` orchestre manuellement la validation, le versionnage puis le
   déploiement depuis `main` ;
 - `deploy.yml` est appelé par le workflow de release pour publier l'image sur
@@ -165,7 +168,7 @@ une version :
 2. sélectionner **Release** (`release.yml`) ;
 3. cliquer sur **Run workflow** et sélectionner la branche `main` ;
 4. attendre la validation du lint, des tests de configuration Semantic Release,
-   du build et du smoke test Docker ;
+   du build, du smoke test Docker et du scan Trivy ;
 5. laisser `semantic-release` analyser les commits Gitmoji et Conventional
    Commits depuis le dernier tag, mettre à jour `CHANGELOG.md`, créer le commit
    de release, le nouveau tag et la GitHub Release ;
@@ -174,6 +177,14 @@ une version :
 
 `release.yml` transmet `release_ref` (tag Git `v<version>`) et `image_tag`
 (`<version>`) au workflow réutilisable, avec `secrets: inherit`.
+
+Le scan Trivy filtre les gravités `HIGH` et `CRITICAL`, ignore les
+vulnérabilités sans correctif connu et échoue si des résultats restent.
+Comme la release attend la validation complète de la CI, cet échec bloque
+également le versionnage, la publication et le déploiement. Le rapport reste
+disponible même lorsque le scan échoue. Pour rétablir la chaîne de release,
+corriger les résultats puis relancer la validation ; un retour arrière du
+workflow retire ce contrôle sans changer la version déjà déployée.
 
 | Job de `deploy.yml` | Runner | Dépendance | Action |
 |--------------------|--------|------------|--------|
@@ -246,11 +257,19 @@ GitHub/GHCR utilisent le `GITHUB_TOKEN` temporaire ; le job Azure demande un
 jeton OIDC. Les permissions déclarées sont :
 
 - CI : `contents: read` ;
+- scan Trivy : `actions: read`, `contents: read` et `security-events: write` ;
 - Semantic Release : `contents: write` pour pousser `CHANGELOG.md` et le tag,
   `issues: write` et `pull-requests: write` ;
 - publication GHCR : `contents: read` et `packages: write` ;
 - déploiement VPS : `contents: read` et `packages: read` ;
 - déploiement Azure : `id-token: write`.
+
+Le job `scans` dans `ci.yml` et le job `validate` dans `release.yml`
+transmettent les permissions du scan. Un workflow réutilisable peut les
+réduire, mais ne peut pas les augmenter. Le scan construit l'image
+localement, sans permission GHCR ni secret supplémentaire. Sur le dépôt
+public, aucune licence GitHub Code Security n'est nécessaire pour importer
+les rapports SARIF.
 
 Le job appelant `deploy` dans `release.yml` autorise `contents: read`,
 `packages: write` et `id-token: write`. Le workflow réutilisable ne peut pas
