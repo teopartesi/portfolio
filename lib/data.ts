@@ -16,7 +16,7 @@ export const profile = {
   tagline:
     "Je conçois des interfaces web propres et des environnements cloud fiables, avec une approche orientée automatisation, qualité et déploiements versionnés.",
   summary:
-    "Ce portfolio est aussi mon projet DevOps fil rouge : une application Next.js conteneurisée, validée et versionnée par GitHub Actions, puis déployée sur une VM Scaleway derrière Traefik.",
+  "Ce portfolio est aussi mon terrain de pratique DevOps : une application Next.js conteneurisée, avec une chaîne CI/CD GitHub Actions pour les contrôles, les releases et les déploiements. Elle est hébergée sur un VPS Scaleway derrière Traefik et également déployée sur Azure Container Apps dans un environnement de lab. J’utilise Ansible pour automatiser la préparation et la configuration de l’infrastructure.",
 };
 
 export const navigation = [
@@ -33,14 +33,22 @@ export const skills = [
       "🐧 Linux",
       "🐳 Docker",
       "⚡ GitHub Actions",
+      "🦊 Gitlab CI/CD",
+      "☸️ Kubernetes",
+      "⛵ Helm",
       "🏷️ Semantic Release",
       "🤖 Ansible",
+      "🔐Vault",
     ],
   },
   {
     category: "Cloud & Infra",
     items: [
       "☁️ Scaleway",
+      "☁️ Azure Container Apps",
+      "🏗️ OpenStack",
+      "🧱 Terraform — notions",
+      "🔑 Authentification OIDC",
       "📦 Docker Compose",
       "🗃️ GHCR",
       "🔀 Traefik",
@@ -54,6 +62,10 @@ export const skills = [
       "🔷 TypeScript",
       "⚛️ React",
       "🎨 Tailwind CSS",
+      "☕ Java",
+      "🌱 Spring Boot",
+      "🅰️ Angular",
+      "🐘 PostgreSQL",
       "🔗 API REST",
     ],
   },
@@ -105,9 +117,55 @@ export const projects = [
       },
     ],
   },
+  {
+    title: "☁️ Déploiement Cloud sur Azure Container Apps",
+    description:
+      "Extension du pipeline du portfolio vers un lab Azure Container Apps. GitHub Actions s’authentifie auprès d’Azure par OIDC et déploie la même image GHCR versionnée que sur le VPS. Ce lab me permet de pratiquer les révisions, le retour à une version précédente et le fonctionnement du scale-to-zero.",
+    tags: [
+      "Azure Container Apps",
+      "GitHub Actions",
+      "OIDC",
+      "Docker",
+      "GHCR",
+    ],
+    links: [
+      {
+        label: "⚡ Voir le workflow",
+        href: "https://github.com/teopartesi/portfolio/blob/main/.github/workflows/deploy.yml",
+      },
+      {
+        label: "📖 Lire la documentation",
+        href: "https://github.com/teopartesi/portfolio/blob/main/docs/DEPLOYMENT.md",
+      },
+    ],
+  },
 ];
 
 export const experience = [
+  {
+    period: "Depuis juin 2026",
+    type: "💼 CDI · Projet interne",
+    organization: "AUBAY SOLUTEC",
+    role: "Ingénieur consultant — contribution DevOps au projet Kairos",
+    summary:
+      "Contribution au projet interne Kairos, une application de visualisation de la présence et des disponibilités dans les bureaux commerciaux. Je prends en charge la mise en place de la chaîne CI/CD et le déploiement de l’environnement de démonstration.",
+    highlights: [
+      "⚡ Mise en place de la CI pour construire et tester les composants Front-End et Back-End.",
+      "🐳 Conteneurisation de l’application et orchestration des services avec Docker Compose.",
+      "🏗️ Création et configuration d’une VM Ubuntu sur OpenStack.",
+      "🔄 Automatisation du déploiement des images GHCR lors des releases avec un runner GitHub Actions auto-hébergé.",
+      "🔐 Hébergement dans une infrastructure interne isolée, accessible via une VM de rebond, sans exposition publique.",
+      "🔎 Vérification de l’état des conteneurs et analyse des logs pour résoudre les problèmes de déploiement.",
+    ],
+    technologies: [
+      "Linux",
+      "Docker",
+      "Docker Compose",
+      "GitHub Actions",
+      "GHCR",
+      "OpenStack",
+    ],
+  },
   {
     period: "2025 – 2026",
     type: "💼 Stage",
@@ -120,6 +178,10 @@ export const experience = [
       "🗄️ Versionnement du schéma avec Liquibase, ainsi que déploiement et gestion de bases de données.",
       "📦 Conteneurisation avec Docker et déploiement sur des clusters Kubernetes.",
       "⚡ Implémentation et optimisation de pipelines GitLab CI/CD pour automatiser les builds et les déploiements.",
+      "⛵ Utilisation de Helm pour les déploiements Kubernetes et d’Ansible pour les opérations de configuration et de déploiement.",
+      "🔐 Utilisation de Vault pour la gestion des secrets applicatifs.",
+      "🔎 Consultation des ressources et des logs avec kubectl et k9s pour analyser les problèmes de déploiement.",
+      "🤝 Travail en environnement Agile, présentation du démonstrateur et accompagnement de collègues dans la prise en main des technologies.",
     ],
     technologies: [
       "Angular",
@@ -129,6 +191,14 @@ export const experience = [
       "Docker",
       "Kubernetes",
       "GitLab CI/CD",
+      "Helm",
+      "Ansible",
+      "Vault",
+      "Keycloak",
+      "kubectl",
+      "k9s",
+      "JUnit",
+      "Cypress",
     ],
   },
   {
