@@ -34,6 +34,17 @@ Cette approche permet de réduire la taille finale de l'image tout en amélioran
 
 L'application Next.js utilise `output: "standalone"` afin de produire une image de production plus légère.
 
+Le stage final `runner` met à jour les paquets Alpine `libcrypto3` et
+`libssl3` pour intégrer les correctifs OpenSSL disponibles. Il retire npm et
+npx, car le conteneur démarre directement avec `node server.js`. npm reste
+disponible dans les stages `deps` et `builder` pour installer et compiler
+l'application. Cette séparation retire de l'image de production les
+dépendances du gestionnaire de paquets inutilisées à l'exécution.
+
+Next.js et Sharp sont épinglés à des versions corrigées dans `package.json`
+et `package-lock.json`. Après une mise à jour, reconstruire l'image et
+relancer Trivy : un rapport généré pour une ancienne image ne change pas.
+
 ---
 
 ## Construction locale
