@@ -1,3 +1,15 @@
+## [1.7.3](https://github.com/teopartesi/portfolio/compare/v1.7.2...v1.7.3) (2026-10-09)
+
+
+### 💚 Fix CI Build
+
+* **trivy:** Fix ☢️trivy vulnerability ([22a6738](https://github.com/teopartesi/portfolio/commit/22a673838d3756addf52588aac615aefeec6105f))
+
+
+### 🩺 Add or update healthcheck
+
+* **ci:** Add Scan Trivy for 🐳Docker image ([7410104](https://github.com/teopartesi/portfolio/commit/741010499dc27d16436f37161c78de7719f411eb))
+
 ## [1.7.2](https://github.com/teopartesi/portfolio/compare/v1.7.1...v1.7.2) (2026-10-05)
 
 
