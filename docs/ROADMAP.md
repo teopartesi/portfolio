@@ -35,7 +35,11 @@ Ce document présente les évolutions prévues pour améliorer l'infrastructure 
 
 - [ ] Ajouter les en-têtes de sécurité HTTP
 - [ ] Mettre en place Fail2Ban
-- [x] Scanner les images Docker avec Trivy dans la CI
+- [x] Scanner les images Docker avec Trivy dans la CI et conserver les rapports SARIF
+- [ ] Vérifier ou activer l'intégration GitHub et le PR gating Aikido
+- [ ] Ajouter l'analyse SonarQube et valider le Quality Gate
+- [ ] Ajouter Semgrep et définir les règles bloquantes
+- [ ] Intégrer les contrôles complémentaires à la validation de release
 - [ ] Renouvellement automatique des dépendances
 
 ---
@@ -63,5 +67,6 @@ Ce document présente les évolutions prévues pour améliorer l'infrastructure 
 
 - [ ] Ajouter des diagrammes d'architecture
 - [x] Documenter le pipeline CI/CD
+- [x] Documenter Trivy et les procédures d’ajout d’Aikido, SonarQube et Semgrep dans [SECURITY.md](./SECURITY.md)
 - [ ] Documenter la procédure de restauration
 - [ ] Ajouter un guide de contribution

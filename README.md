@@ -45,7 +45,7 @@ conteneurisée et déployée sur Scaleway et Azure Container Apps.
 | Usage | Outils |
 | --- | --- |
 | Application | Next.js App Router, React, TypeScript et Tailwind CSS |
-| Environnement local | Node.js **24.18.0** et npm **11.16.0**, épinglés dans [`mise.toml`](./mise.toml) |
+| Environnement local | Node.js **24.18.0** et npm **12.2.0**, épinglés dans [`mise.toml`](./mise.toml) |
 | Qualité et versions | ESLint, GitHub Actions, Semantic Release et [configuration Gitmoji partagée](https://github.com/teopartesi/semantic-release-gitmoji-config) |
 | Conteneurisation | Image Docker multi-stage, sortie Next.js `standalone`, utilisateur non-root et registre GHCR |
 | Infrastructure | Docker Compose, Traefik / Let's Encrypt, playbooks Ansible et Azure Container Apps |
@@ -66,11 +66,15 @@ préproduction qui conditionne le déploiement du VPS.
 
 La [CI](./.github/workflows/ci.yml) s'exécute sur les pull requests et les pushs
 vers `main` : lint, tests de la configuration de release, build Next.js, puis
-construction de l'image Docker, smoke test HTTP du conteneur et
-[scan Trivy](./.github/workflows/scans.yml). Le scan filtre les gravités `HIGH`
+construction et [scan Trivy de l'image Docker](./.github/workflows/ci.yml),
+puis smoke test HTTP du conteneur. Le scan filtre les gravités `HIGH`
 et `CRITICAL`, ignore les vulnérabilités sans correctif connu et bloque la CI
 si des résultats restent. Le rapport SARIF est disponible dans les artifacts
 du run et dans l'onglet **Security and quality → Code scanning** du dépôt public.
+
+Le [guide des scans](./docs/SECURITY.md) décrit la configuration Trivy et
+l'ajout d'Aikido, SonarQube et Semgrep. Leur activation côté services doit être
+vérifiée séparément ; aucun job dédié à ces trois outils n'est déclaré dans la CI.
 
 La publication d'une version se lance **manuellement** avec le workflow
 [Release](https://github.com/teopartesi/portfolio/actions/workflows/release.yml),
@@ -144,6 +148,7 @@ ce conteneur pour libérer le port. Le fichier
 | --- | --- |
 | [Déploiement](./docs/DEPLOYMENT.md) | Pipeline, environnements, OIDC, révisions Azure, vérifications et rollback |
 | [Infrastructure](./docs/INFRASTRUCTURE.md) | Architecture Scaleway / Azure, réseau et cible k3s |
+| [Sécurité et scans](./docs/SECURITY.md) | Trivy, ajout d’Aikido, SonarQube et Semgrep, secrets et contrôles bloquants |
 | [Docker](./docs/DOCKER.md) | Image, conteneurs et commandes utiles |
 | [Traefik](./docs/TRAEFIK.md) | Reverse proxy, routage et HTTPS |
 | [Ansible](./infra/ansible/README.md) | Organisation et utilisation des playbooks |

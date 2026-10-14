@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "teopartesi",
+        "projectKey": "teopartesi_portfolio"
+    }
+}

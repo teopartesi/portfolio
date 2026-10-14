@@ -144,14 +144,14 @@ le tag d'image GHCR correspondant à la version Semantic Release.
 
 ### Release, GHCR et deux cibles de déploiement
 
-Les responsabilités GitHub Actions sont séparées dans quatre workflows :
+Les responsabilités GitHub Actions sont séparées dans trois workflows :
 
 - `ci.yml` lance le lint, les tests de configuration Semantic Release, le build
-  Next.js, le smoke test Docker et le scan Trivy sur les pull requests et les pushs vers
-  `main` ;
-- `scans.yml` est appelé uniquement par la CI, construit l'image locale du
-  portfolio et l'analyse avec Trivy ; il conserve le rapport SARIF comme
-  artifact pendant 14 jours et l'importe dans GitHub Code scanning ;
+  Next.js, puis le job `build-docker` construit et scanne l'image avec Trivy ;
+  le job `docker-smoke` reconstruit et teste le conteneur après succès du scan.
+  Ces contrôles s'exécutent sur les pull requests et les pushs vers `main`, ainsi
+  que lors de l'appel par la release. Le SARIF est conservé 14 jours comme
+  artifact et importé dans GitHub Code scanning ;
 - `release.yml` orchestre manuellement la validation, le versionnage puis le
   déploiement depuis `main` ;
 - `deploy.yml` est appelé par le workflow de release pour publier l'image sur
@@ -182,9 +182,15 @@ Le scan Trivy filtre les gravités `HIGH` et `CRITICAL`, ignore les
 vulnérabilités sans correctif connu et échoue si des résultats restent.
 Comme la release attend la validation complète de la CI, cet échec bloque
 également le versionnage, la publication et le déploiement. Le rapport reste
-disponible même lorsque le scan échoue. Pour rétablir la chaîne de release,
+disponible même lorsque le scan échoue, s'il a été généré. Pour rétablir la chaîne de release,
 corriger les résultats puis relancer la validation ; un retour arrière du
 workflow retire ce contrôle sans changer la version déjà déployée.
+
+La configuration détaillée de Trivy et les procédures d'ajout d'Aikido,
+SonarQube et Semgrep figurent dans [SECURITY.md](./SECURITY.md). Aucun job
+dédié à ces trois outils n'est présent dans `ci.yml`. Un check externe rendu
+obligatoire pour les PR ne bloque pas automatiquement la release manuelle :
+un contrôle de release explicite est nécessaire pour obtenir cette garantie.
 
 | Job de `deploy.yml` | Runner | Dépendance | Action |
 |--------------------|--------|------------|--------|
@@ -264,9 +270,9 @@ jeton OIDC. Les permissions déclarées sont :
 - déploiement VPS : `contents: read` et `packages: read` ;
 - déploiement Azure : `id-token: write`.
 
-Le job `scans` dans `ci.yml` et le job `validate` dans `release.yml`
-transmettent les permissions du scan. Un workflow réutilisable peut les
-réduire, mais ne peut pas les augmenter. Le scan construit l'image
+Le job `build-docker` dans `ci.yml` déclare les permissions du scan ; le job
+appelant `validate` dans `release.yml` les autorise également. Un workflow
+réutilisable peut les réduire, mais ne peut pas les augmenter. Le scan construit l'image
 localement, sans permission GHCR ni secret supplémentaire. Sur le dépôt
 public, aucune licence GitHub Code Security n'est nécessaire pour importer
 les rapports SARIF.
