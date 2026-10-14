@@ -8,11 +8,12 @@ Ce document décrit comment le portfolio est conteneurisé avec Docker et commen
 
 Le portfolio est exécuté dans un conteneur Docker afin de garantir un environnement proche entre le développement, la CI et la production.
 
-La CI construit et teste l'image, puis la scanne avec Trivy. Le workflow
-réutilisable `scans.yml` construit sa propre image locale
-`portfolio:<commit SHA>` depuis le Dockerfile ; les jobs GitHub Actions ne
-partagent pas leur daemon Docker. Le scan ne nécessite donc ni publication
-préalable ni connexion à GHCR.
+Dans `ci.yml`, le job `build-docker` construit l'image locale
+`portfolio:<commit SHA>` depuis le Dockerfile et la scanne avec Trivy. Après
+son succès, `docker-smoke` reconstruit l'image et teste sa réponse HTTP : les
+jobs GitHub Actions ne partagent pas leur daemon Docker. Le scan ne nécessite
+ni publication préalable ni connexion à GHCR. Les seuils, rapports SARIF et
+commandes de reproduction sont décrits dans [SECURITY.md](./SECURITY.md).
 
 Sa publication sur GitHub Container Registry
 (GHCR) intervient uniquement lorsqu'une release est déclenchée manuellement
