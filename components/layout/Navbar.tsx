@@ -5,6 +5,7 @@ import { Mail } from "lucide-react";
 import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa6";
 
 import { navigation, profile, contact } from "@/lib/data";
+import { MobileNavigation } from "@/components/layout/MobileNavigation";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const socialIcons = {
@@ -20,9 +21,9 @@ export function Navbar() {
       <div className="mx-auto max-w-6xl px-5 py-4 sm:px-8">
         <nav
           aria-label="Navigation principale"
-          className="flex items-center justify-between gap-6"
+          className="flex items-center justify-between gap-2 md:gap-6"
         >
-          <a href="" className="group flex flex-col">
+          <a href="" className="group flex shrink-0 flex-col">
             <span className="font-mono text-sm font-semibold uppercase tracking-[0.22em] text-heading">
               {profile.name}
             </span>
@@ -43,7 +44,7 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <ThemeToggle />
             <Popover className="relative shrink-0">
             <PopoverButton className="flex size-10 items-center justify-center overflow-hidden rounded-full border border-accent/40 bg-surface p-0.5 shadow-md shadow-shadow-accent transition duration-200 hover:scale-105 hover:border-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent data-open:border-accent-hover data-open:ring-2 data-open:ring-accent/20 motion-reduce:transform-none motion-reduce:transition-none sm:size-11">
@@ -86,24 +87,9 @@ export function Navbar() {
                 })}
               </PopoverPanel>
             </Popover>
+            <MobileNavigation />
           </div>
         </nav>
-
-        <div
-          aria-label="Navigation mobile"
-          className="mt-4 flex gap-2 overflow-x-auto pb-1 md:hidden"
-        >
-          {navigation.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="shrink-0 rounded-full border border-border bg-surface-muted px-3 py-2 text-sm text-muted transition hover:border-border-strong hover:bg-surface-hover hover:text-heading"
-            >
-              {item.label}
-            </a>
-
-          ))}
-        </div>
       </div>
     </header>
   );

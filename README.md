@@ -23,7 +23,7 @@ conteneurisée et déployée sur Scaleway et Azure Container Apps.
 ## ✨ Le projet
 
 - **Une vitrine personnelle** : présentation, compétences, projets et parcours.
-- **Une interface sombre et responsive** : navigation adaptée au mobile et liens de contact accessibles depuis le pied de page.
+- **Une interface sombre et responsive** : menu mobile à ouverture fluide sous la navbar, liens tactiles accessibles au clavier et liens de contact depuis le profil et le pied de page.
 - **Des aperçus pour le partage** : métadonnées SEO, sitemap, `robots.txt` et images Open Graph/Twitter.
 - **Un projet DevOps concret** : contrôles CI, releases sémantiques, images Docker versionnées et deux cibles de déploiement.
 
