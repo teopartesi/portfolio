@@ -1,3 +1,20 @@
+# [1.8.0](https://github.com/teopartesi/portfolio/compare/v1.7.3...v1.8.0) (2026-10-17)
+
+
+### 💚 Fix CI Build
+
+* **trivy:** Move trivy scan in job build 🐳docker ([3bf860d](https://github.com/teopartesi/portfolio/commit/3bf860dbcca6f6c0b76368bdb6acbf7d798cc70a))
+
+
+### 📝 Add or update documentation
+
+* **scans:** Add docs for scans in CI ([5aadc5b](https://github.com/teopartesi/portfolio/commit/5aadc5b70ae8e4e345fdd2eb20069d5afa128ff5))
+
+
+### Features
+
+* améliorer la navigation mobile ([fec745a](https://github.com/teopartesi/portfolio/commit/fec745a648d36113c2cf59ad589ee87b0a6f8702))
+
 ## [1.7.3](https://github.com/teopartesi/portfolio/compare/v1.7.2...v1.7.3) (2026-10-09)
 
 
