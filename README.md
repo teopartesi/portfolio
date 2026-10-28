@@ -46,7 +46,7 @@ conteneurisée et déployée sur Scaleway et Azure Container Apps.
 | --- | --- |
 | Application | Next.js App Router, React, TypeScript et Tailwind CSS |
 | Environnement local | Node.js **24.18.0** et npm **12.2.0**, épinglés dans [`mise.toml`](./mise.toml) |
-| Qualité et versions | ESLint, GitHub Actions, Semantic Release et [configuration Gitmoji partagée](https://github.com/teopartesi/semantic-release-gitmoji-config) |
+| Qualité et versions | ESLint, GitHub Actions, Dependabot, Semantic Release et [configuration Gitmoji partagée](https://github.com/teopartesi/semantic-release-gitmoji-config) |
 | Conteneurisation | Image Docker multi-stage, sortie Next.js `standalone`, utilisateur non-root et registre GHCR |
 | Infrastructure | Docker Compose, Traefik / Let's Encrypt, playbooks Ansible et Azure Container Apps |
 
@@ -75,6 +75,11 @@ du run et dans l'onglet **Security and quality → Code scanning** du dépôt pu
 Le [guide des scans](./docs/SECURITY.md) décrit la configuration Trivy et
 l'ajout d'Aikido, SonarQube et Semgrep. Leur activation côté services doit être
 vérifiée séparément ; aucun job dédié à ces trois outils n'est déclaré dans la CI.
+
+[Dependabot](./.github/dependabot.yml) vérifie chaque semaine les dépendances
+npm, les actions GitHub et l'image de base Node du Dockerfile. Ses pull requests
+passent par les mêmes contrôles CI avant toute fusion ; elles ne déclenchent pas
+directement de publication ni de déploiement.
 
 La publication d'une version se lance **manuellement** avec le workflow
 [Release](https://github.com/teopartesi/portfolio/actions/workflows/release.yml),

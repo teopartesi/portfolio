@@ -40,7 +40,7 @@ Ce document présente les évolutions prévues pour améliorer l'infrastructure 
 - [ ] Ajouter l'analyse SonarQube et valider le Quality Gate
 - [ ] Ajouter Semgrep et définir les règles bloquantes
 - [ ] Intégrer les contrôles complémentaires à la validation de release
-- [ ] Renouvellement automatique des dépendances
+- [x] Renouvellement automatique des dépendances npm, GitHub Actions et Docker avec Dependabot
 
 ---
 

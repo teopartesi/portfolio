@@ -25,6 +25,11 @@ depuis la branche `main`.
 
 Le Dockerfile utilise une stratégie **multi-stage build**.
 
+L'image de base `node:24.18.0-alpine` est épinglée directement dans le premier
+`FROM`. Cette forme permet à Dependabot de détecter sa version : les images
+référencées via un `ARG` ne sont pas mises à jour par l'écosystème Docker de
+Dependabot. Les autres stages héritent tous de ce stage `base`.
+
 ### Étapes
 
 1. Installation des dépendances
@@ -45,6 +50,18 @@ dépendances du gestionnaire de paquets inutilisées à l'exécution.
 Next.js et Sharp sont épinglés à des versions corrigées dans `package.json`
 et `package-lock.json`. Après une mise à jour, reconstruire l'image et
 relancer Trivy : un rapport généré pour une ancienne image ne change pas.
+
+### Mises à jour Dependabot
+
+La configuration [`.github/dependabot.yml`](../.github/dependabot.yml) vérifie
+l'image de base Docker chaque lundi à 09:00, heure de Paris. Les mises à jour
+mineures et correctives sont regroupées ; une mise à jour majeure reste isolée
+afin que son impact puisse être vérifié séparément.
+
+Chaque pull request Docker repasse par la CI : construction de l'image, scan
+Trivy et smoke test HTTP. Dependabot ne modifie que le premier `FROM` d'un
+Dockerfile multi-stage ; il faut donc conserver l'image versionnée dans le stage
+`base` partagé si la structure du Dockerfile évolue.
 
 ---
 
