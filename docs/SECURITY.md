@@ -8,6 +8,7 @@ ajouter : ils ne modifient pas les workflows existants.
 
 | Outil | État local | Périmètre et rôle |
 | --- | --- | --- |
+| Dependabot | Actif via [`.github/dependabot.yml`](../.github/dependabot.yml) | Mises à jour hebdomadaires des dépendances npm, des actions GitHub et de l'image de base Docker |
 | Trivy | Actif dans le job `build-docker` de [`ci.yml`](../.github/workflows/ci.yml) | Vulnérabilités de l'image Docker ; bloque la CI et la release |
 | Aikido | Aucun job ou fichier dédié | Intégration GitHub et PR gating à vérifier dans Aikido |
 | SonarQube | Aucun job ni `sonar-project.properties` | Qualité et sécurité du code ; analyse et Quality Gate à configurer |
@@ -23,6 +24,19 @@ La production reste Docker Compose et Traefik sur Scaleway, avec une seconde
 cible Azure Container Apps pour le lab. Kubernetes/k3s reste prévu. Aucun
 scanner supplémentaire n'a besoin d'être installé sur le VPS pour analyser le
 dépôt dans GitHub Actions.
+
+## Dependabot : renouvellement des dépendances
+
+Dependabot vérifie chaque lundi à 09:00, heure de Paris, les dépendances npm,
+les actions GitHub et l'image de base du Dockerfile. Les mises à jour mineures
+et correctives sont regroupées par écosystème, tandis que les mises à jour
+majeures restent dans des pull requests distinctes.
+
+Le tag de l'image Node est écrit directement dans le premier `FROM` du
+Dockerfile, car Dependabot ne met pas à jour les images référencées via un
+`ARG`. Tous les stages dérivent de ce stage `base`. Une pull request Dependabot
+reste soumise aux mêmes contrôles CI qu'une autre contribution ; elle ne
+publie ni ne déploie directement une image.
 
 ## Trivy : contrôle actuel de l'image
 

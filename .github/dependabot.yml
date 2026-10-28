@@ -52,3 +52,22 @@ updates:
         update-types:
           - "minor"
           - "patch"
+
+  # 🐳 Image de base Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Paris"
+
+    open-pull-requests-limit: 3
+
+    groups:
+      docker-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
