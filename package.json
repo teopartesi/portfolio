@@ -32,7 +32,7 @@
     "semantic-release": "^25.0.8",
     "semantic-release-gitmoji-config": "1.0.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^7"
   },
   "allowScripts": {
     "unrs-resolver@1.12.2": true
