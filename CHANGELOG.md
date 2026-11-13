@@ -1,3 +1,41 @@
+# [1.9.0](https://github.com/teopartesi/portfolio/compare/v1.8.0...v1.9.0) (2026-11-13)
+
+
+### ✨ Introduce new features
+
+* **dependabot:** Add dependabot for 🐳docker image ([67fbf07](https://github.com/teopartesi/portfolio/commit/67fbf07fdd52f17443c5473e5c9f9df45201186b))
+
+
+### 💚 Fix CI Build
+
+* **workflow:** Change CI Workflow to deploy automate in main ([ef3bbb5](https://github.com/teopartesi/portfolio/commit/ef3bbb5ed6177391033125f35d4a7a31354e69b1))
+
+
+### 🗑️ Deprecate code that needs to be cleaned up
+
+* Delete elements generate IA ([755611c](https://github.com/teopartesi/portfolio/commit/755611ca557435324c38405ff97475a4c6782ad2))
+
+
+### Chores
+
+* **deps-dev:** bump @types/node from 20.19.43 to 26.6.5 ([85fbe7e](https://github.com/teopartesi/portfolio/commit/85fbe7e8e92bc2ab7e2c7c7c48c1179c3fde9b72))
+* **deps-dev:** bump eslint from 9.39.5 to 10.13.0 ([8c23d2c](https://github.com/teopartesi/portfolio/commit/8c23d2cddbfee7491869678bf782ac9800d26852))
+* **deps:** bump actions/checkout from 6 to 7 ([0d829ad](https://github.com/teopartesi/portfolio/commit/0d829ad878f242b2d97fa099ac0162d9c0fd9ed8))
+* **deps:** bump actions/setup-node from 6 to 7 ([93369c3](https://github.com/teopartesi/portfolio/commit/93369c3a79bce3eee1969031cddfd79832c20922))
+* **deps:** bump actions/upload-artifact from 4 to 7 ([b986ab3](https://github.com/teopartesi/portfolio/commit/b986ab3bdb6445fa536ebc8a289c82efc60eb097))
+* **deps:** bump docker/build-push-action from 6 to 7 ([191e034](https://github.com/teopartesi/portfolio/commit/191e034e69716befaea77f7d6614ec61c9cd7316))
+* **deps:** bump docker/login-action from 3 to 4 ([33a07f4](https://github.com/teopartesi/portfolio/commit/33a07f4850a593991b0e716eaebc9402d1fd81eb))
+* **deps:** bump lucide-react ([aaac578](https://github.com/teopartesi/portfolio/commit/aaac5789cb89a823e9dd81559348bd91b42f6738))
+* **deps:** bump lucide-react ([9f80f51](https://github.com/teopartesi/portfolio/commit/9f80f51cebeb47c3440ce3c000810c6b2065f73c))
+* **deps:** bump node ([4b37015](https://github.com/teopartesi/portfolio/commit/4b37015ed5ffc284ede1344026107acf48e203d5))
+* **deps:** bump node from 24.18.0-alpine to 26.12.1-alpine ([f6c2112](https://github.com/teopartesi/portfolio/commit/f6c211295d0d80759b6ba393a29be6180d024fe7))
+* **deps:** bump the nextjs group across 1 directory with 2 updates ([d719268](https://github.com/teopartesi/portfolio/commit/d719268759173b72e52ea1c03393fc226cb8ce7a))
+* **deps:** bump the nextjs group across 1 directory with 2 updates ([076758d](https://github.com/teopartesi/portfolio/commit/076758df9a78104564e1c9844656741fd6a843e8))
+* **deps:** bump the nextjs group with 2 updates ([8dd6b02](https://github.com/teopartesi/portfolio/commit/8dd6b02ca1ffbacfeea205790cac03839ea0dbd0))
+* **deps:** bump the npm-minor-patch group with 2 updates ([8e044b5](https://github.com/teopartesi/portfolio/commit/8e044b5a7f995674da03a649b9599e3c252438b8))
+* **deps:** bump the npm-minor-patch group with 5 updates ([83caa96](https://github.com/teopartesi/portfolio/commit/83caa9608ddb1101437bc2d0c926dc9693ca72a9))
+* **deps:** bump the react group across 1 directory with 2 updates ([6c3af09](https://github.com/teopartesi/portfolio/commit/6c3af0994614794bf3b7f2734a9eb4478a1017f7))
+
 # [1.8.0](https://github.com/teopartesi/portfolio/compare/v1.7.3...v1.8.0) (2026-10-17)
 
 
