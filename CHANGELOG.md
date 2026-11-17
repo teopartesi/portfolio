@@ -1,3 +1,17 @@
+## [1.9.1](https://github.com/teopartesi/portfolio/compare/v1.9.0...v1.9.1) (2026-11-17)
+
+
+### 🚀 Deploy stuff
+
+* Update Traefik router rule to include www subdomain ([7ccc2f0](https://github.com/teopartesi/portfolio/commit/7ccc2f0857b4872b30d3b07aba0f3c3ed12a1404))
+
+
+### Chores
+
+* **deps:** bump node ([ba459a5](https://github.com/teopartesi/portfolio/commit/ba459a5a1de2d838c5139c063940f9f467a41264))
+* **deps:** bump the nextjs group across 1 directory with 2 updates ([bd4a82d](https://github.com/teopartesi/portfolio/commit/bd4a82d1becd9528039b41819c76a5c0a6211246))
+* **deps:** bump the npm-minor-patch group with 3 updates ([bb9e8a9](https://github.com/teopartesi/portfolio/commit/bb9e8a9b5d84e45fda7b7fc0330b2f3d0469dbf5))
+
 # [1.9.0](https://github.com/teopartesi/portfolio/compare/v1.8.0...v1.9.0) (2026-11-13)
 
 
