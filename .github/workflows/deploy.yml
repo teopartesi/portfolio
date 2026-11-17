@@ -86,7 +86,55 @@ jobs:
           docker compose pull
           docker compose up -d --remove-orphans
           docker compose ps
-          docker image prune -f
+          docker image prune -a
+          
+      - name: 🩺 Verify portfolio deployment
+        shell: bash
+        env:
+          IMAGE_TAG: ${{ inputs.image_tag }}
+        run: |
+          set -euo pipefail
+
+          # Vérifier la version réellement utilisée
+          expected="ghcr.io/teopartesi/portfolio:${IMAGE_TAG}"
+          actual="$(docker inspect portfolio --format '{{.Config.Image}}')"
+
+          if [[ "$actual" != "$expected" ]]; then
+            echo "::error::Unexpected Docker image: $actual"
+            exit 1
+          fi
+
+          # Attendre que les deux domaines répondent
+          for attempt in {1..12}; do
+            all_ok=true
+
+            for domain in teopartesi.fr www.teopartesi.fr; do
+              status="$(curl -sS \
+                -o /dev/null \
+                -w '%{http_code}' \
+                --connect-timeout 3 \
+                --max-time 10 \
+                --resolve "${domain}:443:127.0.0.1" \
+                "https://${domain}/" || true)"
+
+              echo "Attempt ${attempt}/12 - ${domain}: HTTP ${status}"
+
+              if [[ "$status" != "200" ]]; then
+                all_ok=false
+              fi
+            done
+
+            if [[ "$all_ok" == true ]]; then
+              echo "✅ Portfolio ${IMAGE_TAG} is healthy"
+              exit 0
+            fi
+
+            sleep 5
+          done
+
+          echo "::error::Portfolio HTTPS health check failed"
+          docker logs portfolio --tail=60 || true
+          exit 1
 
   deploy-azure:
     name: ☁️ Deploy ${{ inputs.image_tag }} to Azure
