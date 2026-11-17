@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/teopartesi/portfolio/compare/v1.9.1...v1.9.2) (2026-11-17)
+
+
+### 🚀 Deploy stuff
+
+* Modify deploy workflow for VPS and directory checks ([6df2534](https://github.com/teopartesi/portfolio/commit/6df2534ff968364f7ce894271dbe7e540a2a3a29))
+
 ## [1.9.1](https://github.com/teopartesi/portfolio/compare/v1.9.0...v1.9.1) (2026-11-17)
 
 
