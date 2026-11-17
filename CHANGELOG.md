@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/teopartesi/portfolio/compare/v1.9.2...v1.9.3) (2026-11-17)
+
+
+### 🚀 Deploy stuff
+
+* Enhance deployment workflow with health checks ([ebf3338](https://github.com/teopartesi/portfolio/commit/ebf33386c3daf92b024c772eea5b02a8318f354e))
+
 ## [1.9.2](https://github.com/teopartesi/portfolio/compare/v1.9.1...v1.9.2) (2026-11-17)
 
 
