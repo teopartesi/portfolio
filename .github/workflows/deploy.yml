@@ -47,7 +47,7 @@ jobs:
 
   deploy-vps:
     name: 🚀 Deploy ${{ inputs.image_tag }}
-    runs-on: [self-hosted, linux, portfolio-prod]
+    runs-on: [self-hosted, linux, x64, ovh-prod]
     needs: publish
     environment: portfolio-prod
     permissions:
@@ -73,7 +73,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          install -d /opt/docker/compose/portfolio
+          test -d /opt/docker/compose/portfolio
+          test -w /opt/docker/compose/portfolio
           docker network inspect proxy >/dev/null
 
           cp compose.prod.yaml /opt/docker/compose/portfolio/compose.yaml
