@@ -29,7 +29,7 @@
     "eslint": "^10",
     "eslint-config-next": "16.4.6",
     "gitmojis": "^3.15.0",
-    "semantic-release": "^25.0.8",
+    "semantic-release": "^26.0.1",
     "semantic-release-gitmoji-config": "1.1.0",
     "tailwindcss": "^4",
     "typescript": "^5"
